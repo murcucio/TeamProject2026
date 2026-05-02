@@ -30,7 +30,7 @@ pip install -r requirements.txt
 보안을 위해 API 키는 소스 코드에 포함되지 않습니다. 최상단 폴더에 .env 파일을 생성하고 아래 형식을 복사하여 본인의 키를 입력하세요.
 ```
 .env 파일 내용
-ANTHROPIC_API_KEY=your_actual_api_key_here
+ANTHROPIC_API_KEY=xxx
 OPENAI_API_KEY=PLACEHOLDER
 ```
 ### 4. 현재 폴더 구조 설명
