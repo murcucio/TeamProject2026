@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Acknowledging Good Java Code with Code Perfumes",
+    "abstract": "Java remains one of the most popular programming languages in education. Although Java programming education is well supported by study materials, learners also need more immediate support on the problems they face in their own code. When this support cannot be offered by educators personally, learners can resort to automated program analysis tools such as linters, which provide feedback on potential bugs or code issues. This is constructive feedback, but it may nevertheless feel like criticism. This paper introduces code perfumes for Java, a simple program analysis technique similar to linting, but commending the correct application of good programming practices. We present a catalogue of 20 Java code perfumes related to common Java language constructs for beginner to immediate learners. Our evaluation shows that these code perfumes occur frequently in learners' code, and programs with more code perfume instances tend to have better functionality and readability. Moreover, students who incorporate more code perfumes tend to achieve higher grades. Thus, code perfumes serve as a valuable tool to acknowledge learners' successes, and as a means to inform instructors about their learners' progress.",
+    "authors": [
+      "Philipp Straubinger",
+      "Florian Obermüller",
+      "Gordon Fraser"
+    ],
+    "source": "arxiv",
+    "url": "http://arxiv.org/abs/2406.16348v1",
+    "year": "2024"
+  },
+  {
+    "title": "Sentiment-Driven Community Detection in a Network of Perfume Preferences",
+    "abstract": "Network analysis is increasingly important across various fields, including the fragrance industry, where perfumes are represented as nodes and shared user preferences as edges in perfume networks. Community detection can uncover clusters of similar perfumes, providing insights into consumer preferences, enhancing recommendation systems, and informing targeted marketing strategies.   This study aims to apply community detection techniques to group perfumes favored by users into relevant clusters for better recommendations. We constructed a bipartite network from user reviews on the Persian retail platform \"Atrafshan,\" with nodes representing users and perfumes, and edges formed by positive comments. This network was transformed into a Perfume Co-Preference Network, connecting perfumes liked by the same users. By applying community detection algorithms, we identified clusters based on shared preferences, enhancing our understanding of user sentiment in the fragrance market.   To improve sentiment analysis, we integrated emojis and a user voting system for greater accuracy. Emojis, aligned with their Persian counterparts, captured the emotional tone of reviews, while user ratings for scent, longevity, and sillage refined sentiment classification. Edge weights were adjusted by combining adjacency values with user ratings in a 60:40 ratio, reflecting both connection strength and user preferences. These enhancements led to improved modularity of detected communities, resulting in more accurate perfume groupings.   This research pioneers the use of community detection in perfume networks, offering new insights into consumer preferences. Our advancements in sentiment analysis and edge weight refinement provide actionable insights for optimizing product recommendations and marketing strategies in the fragrance industry.",
+    "authors": [
+      "Kamand Kalashi",
+      "Sajjad Saed",
+      "Babak Teimourpour"
+    ],
+    "source": "arxiv",
+    "url": "http://arxiv.org/abs/2410.19177v2",
+    "year": "2024"
+  },
+  {
+    "title": "Social Success of Perfumes",
+    "abstract": "We study data on perfumes and their odour descriptors - notes - to understand how note compositions, called accords, influence successful fragrance formulas. We obtain accords which tend to be present in perfumes that receive significantly more customer ratings. Our findings show that the most popular notes and the most over-represented accords are different to those that have the strongest effect to the perfume ratings. We also used network centrality to understand which notes have the highest potential to enhance note compositions. We find that large degree notes, such as musk and vanilla as well as generically-named notes, e.g. floral notes, are amongst the notes that enhance accords the most. This work presents a framework which would be a timely tool for perfumers to explore a multidimensional space of scent compositions.",
+    "authors": [
+      "Vaiva Vasiliauskaite",
+      "Tim S. Evans"
+    ],
+    "source": "arxiv",
+    "url": "http://arxiv.org/abs/1909.05726v1",
+    "year": "2019"
+  },
+  {
+    "title": "Filipino Use of Designer and Luxury Perfumes: A Pilot Study of Consumer Behavior",
+    "abstract": "This study investigates the usage patterns and purposes of designer perfumes among Filipino consumers, employing purposive and snowball sampling methods as non-probability sampling techniques. Data was collected using Google Forms, and the majority of respondents purchased full bottles of designer perfumes from retailers, wholesalers, and physical stores, with occasional \"blind purchases.\" Daily usage was common, with respondents applying an average of 5.88 sprays in the morning, favoring fresh scent notes and Eau De Parfum concentration. They tended to alternate perfumes daily, selecting different scent profiles according to the Philippine climate. The study reveals that Filipino respondents primarily use designer perfumes to achieve a pleasant and fresh fragrance. Additionally, these perfumes play a role in boosting self-esteem, elevating mood, and enhancing personal presentation. Some respondents reported fewer common applications, such as using perfume to address insomnia and migraines. Overall, the research highlights the significant role of perfume in the grooming routine of Filipino consumers. This study represents the first attempt to comprehend perfume usage patterns and purposes specifically within the Filipino context. Consequently, its findings are invaluable for manufacturers and marketers targeting the Filipino market, providing insights into consumer preferences and motivations.",
+    "authors": [
+      "John Paul P. Miranda",
+      "Maria Anna D. Cruz",
+      "Dina D. Gonzales",
+      "Ma. Rebecca G. Del Rosario",
+      "Aira May B. Canlas",
+      "Joseph Alexander Bansil"
+    ],
+    "source": "arxiv",
+    "url": "http://arxiv.org/abs/2401.17886v1",
+    "year": "2024"
+  },
+  {
+    "title": "Code Perfumes: Reporting Good Code to Encourage Learners",
+    "abstract": "Block-based programming languages like Scratch enable children to be creative while learning to program. Even though the block-based approach simplifies the creation of programs, learning to program can nevertheless be challenging. Automated tools such as linters therefore support learners by providing feedback about potential bugs or code smells in their programs. Even when this feedback is elaborate and constructive, it still represents purely negative criticism and by construction ignores what learners have done correctly in their programs. In this paper we introduce an orthogonal approach to linting: We complement the criticism produced by a linter with positive feedback. We introduce the concept of code perfumes as the counterpart to code smells, indicating the correct application of programming practices considered to be good. By analysing not only what learners did wrong but also what they did right we hope to encourage learners, to provide teachers and students a better understanding of learners' progress, and to support the adoption of automated feedback tools. Using a catalogue of 25 code perfumes for Scratch, we empirically demonstrate that these represent frequent practices in Scratch, and we find that better programs indeed contain more code perfumes.",
+    "authors": [
+      "Florian Obermüller",
+      "Lena Bloch",
+      "Luisa Greifenstein",
+      "Ute Heuer",
+      "Gordon Fraser"
+    ],
+    "source": "arxiv",
+    "url": "http://arxiv.org/abs/2108.06289v1",
+    "year": "2021"
+  }
+]
