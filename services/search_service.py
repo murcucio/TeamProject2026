@@ -1,12 +1,24 @@
-<<<<<<< HEAD
-import requests
+"""Search service for external paper APIs."""
+from __future__ import annotations
+
 import json
 import os
+import time
+import xml.etree.ElementTree as ET
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote_plus
+from urllib.request import Request, urlopen
+
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-# ─────────────────────────────────────────
-# 공통: paper_schema 형식으로 변환
-# ─────────────────────────────────────────
+ARXIV_API_URL = "https://export.arxiv.org/api/query"
+ARXIV_USER_AGENT = "TeamProject2026/1.0 (educational project)"
+ARXIV_CONTACT_EMAIL = os.getenv("ARXIV_CONTACT_EMAIL", "")
+
 
 def parse_to_paper_schema(raw: dict, source: str) -> dict:
     return {
@@ -19,50 +31,80 @@ def parse_to_paper_schema(raw: dict, source: str) -> dict:
     }
 
 
-# ─────────────────────────────────────────
-# arXiv API 검색
-# ─────────────────────────────────────────
+def build_arxiv_url(keyword: str, start: int = 0, max_results: int = 5) -> str:
+    query = f'ti:"{keyword}" OR abs:"{keyword}"'
+    encoded_keyword = quote_plus(query)
+    return (
+        f"{ARXIV_API_URL}?search_query={encoded_keyword}"
+        f"&start={start}&max_results={max_results}"
+    )
 
-def search_arxiv(query: str, max_results: int = 5) -> list:
-    url = "http://export.arxiv.org/api/query"
-    params = {
-        "search_query": f"all:{query}",
-        "start": 0,
-        "max_results": max_results
+
+def search_arxiv(query: str, max_results: int = 5, retries: int = 2) -> list:
+    url = build_arxiv_url(keyword=query, max_results=max_results)
+    headers = {
+        "User-Agent": ARXIV_USER_AGENT,
+        "Accept": "application/atom+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
     }
+    if ARXIV_CONTACT_EMAIL:
+        headers["From"] = ARXIV_CONTACT_EMAIL
 
-    try:
-        response = requests.get(url, params=params, timeout=10)
-        if response.status_code != 200:
-            print(f"arXiv API 오류: {response.status_code}")
+    request = Request(url, headers=headers)
+    last_error = None
+
+    for attempt in range(retries + 1):
+        if attempt > 0:
+            wait_seconds = 10 * attempt
+            print(f"arXiv 재시도 대기 중... {wait_seconds}초")
+            time.sleep(wait_seconds)
+        else:
+            time.sleep(3)
+
+        try:
+            with urlopen(request, timeout=20) as response:
+                xml_data = response.read()
+            break
+        except HTTPError as error:
+            last_error = error
+            if error.code == 429 and attempt < retries:
+                continue
+            print(f"arXiv API 요청 실패: HTTP {error.code}")
             return []
-    except requests.exceptions.RequestException as e:
-        print(f"arXiv 요청 실패: {e}")
+        except Exception as error:
+            last_error = error
+            print(f"arXiv 요청 실패: {error}")
+            return []
+    else:
+        print(f"arXiv 재시도 모두 실패: {last_error}")
         return []
 
-    # XML 파싱
-    import xml.etree.ElementTree as ET
-    ns = {"atom": "http://www.w3.org/2005/Atom"}
-    root = ET.fromstring(response.text)
-    entries = root.findall("atom:entry", ns)
-
+    namespace = {"atom": "http://www.w3.org/2005/Atom"}
+    root = ET.fromstring(xml_data)
     results = []
-    for entry in entries:
-        title    = entry.find("atom:title", ns).text.strip().replace("\n", " ")
-        abstract = entry.find("atom:summary", ns).text.strip().replace("\n", " ")
-        authors  = [a.find("atom:name", ns).text for a in entry.findall("atom:author", ns)]
-        link     = entry.find("atom:id", ns).text.strip()
-        year     = entry.find("atom:published", ns).text[:4]
 
-        raw = {"title": title, "abstract": abstract, "authors": authors, "url": link, "year": year}
+    for entry in root.findall("atom:entry", namespace):
+        title     = (entry.findtext("atom:title", default="", namespaces=namespace) or "").strip()
+        abstract  = (entry.findtext("atom:summary", default="", namespaces=namespace) or "").strip()
+        published = (entry.findtext("atom:published", default="", namespaces=namespace) or "").strip()
+        year      = published[:4] if published else ""
+
+        authors = []
+        for author in entry.findall("atom:author", namespace):
+            name = author.findtext("atom:name", default="", namespaces=namespace)
+            if name:
+                authors.append(name.strip())
+
+        paper_url = ""
+        for link in entry.findall("atom:link", namespace):
+            if link.attrib.get("rel") == "alternate":
+                paper_url = link.attrib.get("href", "")
+                break
+
+        raw = {"title": title, "abstract": abstract, "authors": authors, "url": paper_url, "year": year}
         results.append(parse_to_paper_schema(raw, source="arxiv"))
 
     return results
 
-
-# ─────────────────────────────────────────
-# Semantic Scholar API 검색
-# ─────────────────────────────────────────
 
 def search_semantic_scholar(query: str, limit: int = 5) -> list:
     url = "https://api.semanticscholar.org/graph/v1/paper/search"
@@ -96,10 +138,6 @@ def search_semantic_scholar(query: str, limit: int = 5) -> list:
     return results
 
 
-# ─────────────────────────────────────────
-# 결과 출력
-# ─────────────────────────────────────────
-
 def display_results(papers: list):
     if not papers:
         print("검색 결과 없음")
@@ -115,10 +153,6 @@ def display_results(papers: list):
         print(f"    출처: {paper['source']}")
 
 
-# ─────────────────────────────────────────
-# JSON 저장
-# ─────────────────────────────────────────
-
 def save_search_result(papers: list):
     os.makedirs("data/raw", exist_ok=True)
     save_path = "data/raw/search_result.json"
@@ -126,10 +160,6 @@ def save_search_result(papers: list):
         json.dump(papers, f, ensure_ascii=False, indent=2)
     print(f"\n저장 완료: {save_path}")
 
-
-# ─────────────────────────────────────────
-# 통합 실행 함수 (search_agent에서 호출)
-# ─────────────────────────────────────────
 
 def run_search(topic: str) -> list:
     if not topic.strip():
@@ -153,148 +183,6 @@ def run_search(topic: str) -> list:
     return results
 
 
-# ─────────────────────────────────────────
-# 직접 실행 테스트용
-# ─────────────────────────────────────────
-
 if __name__ == "__main__":
     topic = input("검색할 주제를 입력하세요: ")
     run_search(topic)
-=======
-"""Search service for external paper APIs."""
-
-from __future__ import annotations
-
-import os
-from urllib.parse import quote_plus
-from urllib.request import Request, urlopen
-import xml.etree.ElementTree as ET
-from urllib.error import HTTPError, URLError
-import time
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
-ARXIV_API_URL = "https://export.arxiv.org/api/query"
-ARXIV_USER_AGENT = "TeamProject2026/1.0 (educational project)"
-ARXIV_CONTACT_EMAIL = os.getenv("ARXIV_CONTACT_EMAIL", "")
-
-
-def _safe_text(text: str) -> str:
-    """Make console output safe on Windows code pages."""
-    return text.encode("cp949", errors="replace").decode("cp949")
-
-
-def build_arxiv_url(keyword: str, start: int = 0, max_results: int = 3) -> str:
-    query = f'ti:"{keyword}" OR abs:"{keyword}"'
-    encoded_keyword = quote_plus(query)
-    return (
-        f"{ARXIV_API_URL}?search_query={encoded_keyword}"
-        f"&start={start}&max_results={max_results}"
-    )
-
-
-def fetch_arxiv_papers(keyword: str, max_results: int = 3, retries: int = 2) -> list[dict]:
-    url = build_arxiv_url(keyword=keyword, max_results=max_results)
-    headers = {
-        "User-Agent": ARXIV_USER_AGENT,
-        "Accept": "application/atom+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
-    }
-    if ARXIV_CONTACT_EMAIL:
-        headers["From"] = ARXIV_CONTACT_EMAIL
-
-    request = Request(url, headers=headers)
-
-    last_error = None
-    for attempt in range(retries + 1):
-        if attempt > 0:
-            wait_seconds = 10 * attempt
-            print(f"arXiv 재시도 대기 중... {wait_seconds}초")
-            time.sleep(wait_seconds)
-        else:
-            time.sleep(3)
-
-        try:
-            with urlopen(request, timeout=20) as response:
-                xml_data = response.read()
-            break
-        except HTTPError as error:
-            last_error = error
-            if error.code == 429 and attempt < retries:
-                continue
-            raise
-        except Exception as error:
-            last_error = error
-            raise
-    else:
-        raise last_error
-
-    root = ET.fromstring(xml_data)
-    namespace = {
-        "atom": "http://www.w3.org/2005/Atom",
-    }
-
-    papers = []
-    for entry in root.findall("atom:entry", namespace):
-        title = (entry.findtext("atom:title", default="", namespaces=namespace) or "").strip()
-        summary = (entry.findtext("atom:summary", default="", namespaces=namespace) or "").strip()
-        published = (entry.findtext("atom:published", default="", namespaces=namespace) or "").strip()
-
-        authors = []
-        for author in entry.findall("atom:author", namespace):
-            name = author.findtext("atom:name", default="", namespaces=namespace)
-            if name:
-                authors.append(name.strip())
-
-        links = entry.findall("atom:link", namespace)
-        paper_url = ""
-        for link in links:
-            href = link.attrib.get("href", "")
-            rel = link.attrib.get("rel", "")
-            if href and rel == "alternate":
-                paper_url = href
-                break
-
-        papers.append(
-            {
-                "title": title,
-                "authors": authors,
-                "abstract": summary,
-                "url": paper_url,
-                "source": "arXiv",
-                "published": published,
-            }
-        )
-
-    return papers
-
-
-def demo_arxiv_search(keyword: str = "code review") -> None:
-    url = build_arxiv_url(keyword)
-    print(f"arXiv 요청 URL: {url}")
-    print(f"User-Agent: {ARXIV_USER_AGENT}")
-    if ARXIV_CONTACT_EMAIL:
-        print(f"From: {ARXIV_CONTACT_EMAIL}")
-
-    try:
-        papers = fetch_arxiv_papers(keyword)
-        print(f"검색 결과 수: {len(papers)}")
-
-        for index, paper in enumerate(papers, start=1):
-            print(f"[{index}] {_safe_text(paper['title'])}")
-            print(f"    authors: {_safe_text(', '.join(paper['authors']))}")
-            print(f"    url: {_safe_text(paper['url'])}")
-            print(f"    abstract: {_safe_text(paper['abstract'][:120])}...")
-    except HTTPError as error:
-        print(f"arXiv API 요청 실패: HTTP {error.code}")
-    except URLError as error:
-        print(f"arXiv API 연결 실패: {error.reason}")
-    except TimeoutError:
-        print("arXiv API 응답 대기 시간이 초과되었습니다.")
-
-
-if __name__ == "__main__":
-    demo_arxiv_search()
->>>>>>> 870b48bb4093544d151de01319d4e0a6c370e4f4
