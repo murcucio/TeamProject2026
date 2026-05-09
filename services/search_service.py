@@ -1,8 +1,10 @@
 """Search service for external paper APIs."""
+
 from __future__ import annotations
 
 import json
 import os
+import socket
 import time
 import xml.etree.ElementTree as ET
 from urllib.error import HTTPError, URLError
@@ -18,22 +20,58 @@ ARXIV_API_URL = "https://export.arxiv.org/api/query"
 SEMANTIC_SCHOLAR_API_URL = "https://api.semanticscholar.org/graph/v1/paper/search"
 ARXIV_USER_AGENT = "TeamProject2026/1.0 (educational project)"
 ARXIV_CONTACT_EMAIL = os.getenv("ARXIV_CONTACT_EMAIL", "")
+DEFAULT_MAX_RESULTS = 20
 
 
 def parse_to_paper_schema(raw: dict, source: str) -> dict:
     """Normalize raw API results into one common paper schema."""
     return {
-        "title":    raw.get("title", ""),
+        "title": raw.get("title", ""),
         "abstract": raw.get("abstract", ""),
-        "authors":  raw.get("authors", []),
-        "source":   source,
-        "url":      raw.get("url", ""),
-        "year":     raw.get("year", ""),
+        "authors": raw.get("authors", []),
+        "source": source,
+        "url": raw.get("url", ""),
+        "year": raw.get("year", ""),
+        "categories": raw.get("categories", []),
     }
 
 
-def build_arxiv_url(keyword: str, start: int = 0, max_results: int = 5) -> str:
-    query = f'ti:"{keyword}" OR abs:"{keyword}"'
+def is_computer_science_paper(paper: dict) -> bool:
+    """Use arXiv categories as the primary computer-science filter."""
+    categories = paper.get("categories", [])
+    return any(category.startswith("cs.") for category in categories)
+
+
+def filter_computer_science_papers(papers: list[dict]) -> list[dict]:
+    filtered = [paper for paper in papers if is_computer_science_paper(paper)]
+    removed_count = len(papers) - len(filtered)
+    if removed_count > 0:
+        print(f"컴퓨터 분야 카테고리가 아닌 논문 {removed_count}편 제외")
+    return filtered
+
+
+def deduplicate_papers(papers: list[dict]) -> list[dict]:
+    seen: set[tuple[str, str]] = set()
+    deduped: list[dict] = []
+    for paper in papers:
+        key = (paper.get("title", "").strip().lower(), str(paper.get("year", "")))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(paper)
+    return deduped
+
+
+def build_arxiv_url(
+    keyword: str,
+    start: int = 0,
+    max_results: int = DEFAULT_MAX_RESULTS,
+) -> str:
+    words = [word for word in keyword.split() if word.strip()]
+    phrase_query = f'ti:"{keyword}" OR abs:"{keyword}"'
+    broad_query = " AND ".join(f'all:"{word}"' for word in words)
+    text_query = f"({phrase_query}) OR ({broad_query})" if broad_query else phrase_query
+    query = f"cat:cs.* AND ({text_query})"
     encoded_query = quote_plus(query)
     return (
         f"{ARXIV_API_URL}?search_query={encoded_query}"
@@ -41,8 +79,12 @@ def build_arxiv_url(keyword: str, start: int = 0, max_results: int = 5) -> str:
     )
 
 
-def fetch_arxiv_papers(keyword: str, max_results: int = 5, retries: int = 2) -> list[dict]:
-    """Fetch papers from arXiv with conservative retry behavior."""
+def fetch_arxiv_papers(
+    keyword: str,
+    max_results: int = DEFAULT_MAX_RESULTS,
+    retries: int = 2,
+) -> list[dict]:
+    """Fetch papers from arXiv with retries."""
     url = build_arxiv_url(keyword=keyword, max_results=max_results)
     headers = {
         "User-Agent": ARXIV_USER_AGENT,
@@ -60,14 +102,24 @@ def fetch_arxiv_papers(keyword: str, max_results: int = 5, retries: int = 2) -> 
             print(f"arXiv 재시도 대기 중... {wait_seconds}초")
             time.sleep(wait_seconds)
         else:
-            time.sleep(3)
+            time.sleep(2)
 
         try:
-            with urlopen(request, timeout=20) as response:
+            with urlopen(request, timeout=45) as response:
                 xml_data = response.read()
             break
         except HTTPError as error:
             if error.code == 429 and attempt < retries:
+                continue
+            raise
+        except (TimeoutError, socket.timeout) as error:
+            if attempt < retries:
+                print(f"arXiv 응답 지연으로 재시도합니다: {error}")
+                continue
+            raise TimeoutError("arXiv API timed out") from error
+        except URLError as error:
+            if attempt < retries and "timed out" in str(error.reason).lower():
+                print(f"arXiv 연결 지연으로 재시도합니다: {error.reason}")
                 continue
             raise
 
@@ -76,9 +128,11 @@ def fetch_arxiv_papers(keyword: str, max_results: int = 5, retries: int = 2) -> 
 
     papers = []
     for entry in root.findall("atom:entry", namespace):
-        title     = (entry.findtext("atom:title", default="", namespaces=namespace) or "").strip()
-        summary   = (entry.findtext("atom:summary", default="", namespaces=namespace) or "").strip()
+        title = (entry.findtext("atom:title", default="", namespaces=namespace) or "").strip()
+        summary = (entry.findtext("atom:summary", default="", namespaces=namespace) or "").strip()
         published = (entry.findtext("atom:published", default="", namespaces=namespace) or "").strip()
+        categories = [category.attrib.get("term", "").strip() for category in entry.findall("atom:category", namespace)]
+        categories = [category for category in categories if category]
 
         authors = []
         for author in entry.findall("atom:author", namespace):
@@ -89,28 +143,29 @@ def fetch_arxiv_papers(keyword: str, max_results: int = 5, retries: int = 2) -> 
         paper_url = ""
         for link in entry.findall("atom:link", namespace):
             href = link.attrib.get("href", "")
-            rel  = link.attrib.get("rel", "")
+            rel = link.attrib.get("rel", "")
             if href and rel == "alternate":
                 paper_url = href
                 break
 
         raw = {
-            "title":    title,
+            "title": title,
             "abstract": summary,
-            "authors":  authors,
-            "url":      paper_url,
-            "year":     published[:4] if published else "",
+            "authors": authors,
+            "url": paper_url,
+            "year": published[:4] if published else "",
+            "categories": categories,
         }
         papers.append(parse_to_paper_schema(raw, source="arXiv"))
 
     return papers
 
 
-def search_semantic_scholar(query: str, limit: int = 5) -> list[dict]:
+def search_semantic_scholar(query: str, limit: int = DEFAULT_MAX_RESULTS) -> list[dict]:
     """Fetch paper metadata from Semantic Scholar."""
     params = {
-        "query":  query,
-        "limit":  limit,
+        "query": query,
+        "limit": limit,
         "fields": "title,abstract,authors,year,url,paperId",
     }
     url = f"{SEMANTIC_SCHOLAR_API_URL}?{urlencode(params)}"
@@ -118,34 +173,49 @@ def search_semantic_scholar(query: str, limit: int = 5) -> list[dict]:
         url,
         headers={
             "User-Agent": ARXIV_USER_AGENT,
-            "Accept":     "application/json",
+            "Accept": "application/json",
         },
     )
 
-    try:
-        with urlopen(request, timeout=20) as response:
-            data = json.loads(response.read().decode("utf-8"))
-    except HTTPError as error:
-        print(f"Semantic Scholar API 요청 실패: HTTP {error.code}")
-        return []
-    except URLError as error:
-        print(f"Semantic Scholar API 연결 실패: {error.reason}")
-        return []
-    except TimeoutError:
-        print("Semantic Scholar API 응답 대기 시간이 초과되었습니다.")
-        return []
+    data: dict = {}
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=30) as response:
+                data = json.loads(response.read().decode("utf-8"))
+            break
+        except HTTPError as error:
+            if error.code == 429 and attempt < 2:
+                wait_seconds = 5 * (attempt + 1)
+                print(f"Semantic Scholar 요청 제한으로 {wait_seconds}초 후 재시도합니다.")
+                time.sleep(wait_seconds)
+                continue
+            print(f"Semantic Scholar API 요청 실패: HTTP {error.code}")
+            return []
+        except URLError as error:
+            print(f"Semantic Scholar API 연결 실패: {error.reason}")
+            return []
+        except (TimeoutError, socket.timeout):
+            if attempt < 2:
+                wait_seconds = 5 * (attempt + 1)
+                print(f"Semantic Scholar 응답 지연으로 {wait_seconds}초 후 재시도합니다.")
+                time.sleep(wait_seconds)
+                continue
+            print("Semantic Scholar API 응답 대기 시간이 초과되었습니다.")
+            return []
 
     results = []
     for paper in data.get("data", []):
         raw = {
-            "title":    paper.get("title", ""),
+            "title": paper.get("title", ""),
             "abstract": paper.get("abstract", "") or "",
-            "authors":  [a.get("name", "") for a in paper.get("authors", []) if a.get("name")],
-            "year":     str(paper.get("year", "") or ""),
-            "url":      paper.get("url", "") or (
+            "authors": [a.get("name", "") for a in paper.get("authors", []) if a.get("name")],
+            "year": str(paper.get("year", "") or ""),
+            "url": paper.get("url", "") or (
                 f"https://www.semanticscholar.org/paper/{paper.get('paperId', '')}"
-                if paper.get("paperId") else ""
+                if paper.get("paperId")
+                else ""
             ),
+            "categories": [],
         }
         results.append(parse_to_paper_schema(raw, source="Semantic Scholar"))
 
@@ -153,19 +223,14 @@ def search_semantic_scholar(query: str, limit: int = 5) -> list[dict]:
 
 
 def display_results(papers: list[dict]) -> None:
+    """Print all normalized paper data in one JSON block."""
     if not papers:
         print("검색 결과 없음")
         return
 
-    for index, paper in enumerate(papers, start=1):
-        authors_preview  = ", ".join(paper["authors"][:3]) if paper["authors"] else "정보 없음"
-        abstract_preview = paper["abstract"][:100] + "..." if paper["abstract"] else "초록 없음"
-        print(f"\n[{index}] {paper['title']}")
-        print(f"    저자: {authors_preview}")
-        print(f"    연도: {str(paper['year'])}")
-        print(f"    초록: {abstract_preview}")
-        print(f"    링크: {paper['url']}")
-        print(f"    출처: {paper['source']}")
+    print("\n변환된 논문 데이터 전체 출력:")
+    print(json.dumps(papers, ensure_ascii=False, indent=2))
+    print(f"\n총 {len(papers)}편이 동일한 구조로 변환되었습니다.")
 
 
 def save_search_result(papers: list[dict]) -> None:
@@ -195,12 +260,16 @@ def run_search(topic: str) -> list[dict]:
         print("arXiv API 응답 대기 시간이 초과되었습니다.")
         arxiv_results = []
 
-    print(f"[Semantic Scholar 검색 중...] '{topic}'")
-    semantic_results = search_semantic_scholar(topic)
+    # Semantic Scholar API는 아직 미사용 상태라 검색 흐름에서 제외한다.
+    # API 키/호출 정책이 정리되면 아래 두 줄을 복구해서 다시 연결하면 된다.
+    # print(f"[Semantic Scholar 검색 중...] '{topic}'")
+    # semantic_results = search_semantic_scholar(topic)
+    semantic_results: list[dict] = []
 
-    results = arxiv_results + semantic_results
+    results = deduplicate_papers(arxiv_results + semantic_results)
+    results = filter_computer_science_papers(results)
     if not results:
-        print("검색 결과가 없습니다. 다른 키워드를 시도해보세요.")
+        print("컴퓨터 분야 조건에 맞는 검색 결과가 없습니다. 다른 키워드를 시도해보세요.")
         return []
 
     display_results(results)

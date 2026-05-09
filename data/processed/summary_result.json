@@ -1,46 +1,429 @@
 [
   {
-    "title": "Acknowledging Good Java Code with Code Perfumes",
+    "title": "Using StackOverflow content to assist in code review",
+    "abstract": "An important goal for programmers is to minimize cost of identifying and correcting defects in source code. Code review is commonly used for identifying programming defects. However, manual code review has some shortcomings: a) it is time consuming, b) outcomes are subjective and depend on the skills of reviewers. An automated approach for assisting in code reviews is thus highly desirable. We present a tool for assisting in code review and results from our experiments evaluating the tool in different scenarios. The tool leveraged content available from professional programmer support forums (e.g. StackOverflow.com) to determine potential defectiveness of a given piece of source code. The defectiveness is expressed on the scale of {Likely defective, Neutral, Unlikely to be defective}. Basic idea employed in the tool is to: a) Identify a set P of discussion posts on StackOverflow such that each p in P contains source code fragment(s) which sufficiently resemble the input code C being reviewed. b) Determine the likelihood of C being defective by considering all p in P . A novel aspect of our approach is to use document fingerprinting for comparing two pieces of source code. Our choice of document fingerprinting technique is inspired by source code plagiarism detection tools where it has proven to be very successful. In the experiments that we performed to verify effectiveness of our approach source code samples from more than 300 GitHub open source repositories were taken as input. A precision of more than 90% in identifying correct/relevant results has been achieved.",
     "authors": [
-      "Philipp Straubinger",
-      "Florian Obermüller",
-      "Gordon Fraser"
+      "Balwinder Sodhi",
+      "Shipra Sharma"
     ],
-    "year": "2024",
-    "url": "http://arxiv.org/abs/2406.16348v1",
-    "source": "arxiv",
-    "purpose": "Java 프로그래밍 교육에서 학습자들의 올바른 코딩 실践을 인정하고 긍정적인 피드백을 제공하기 위해 'Code Perfumes'라는 프로그램 분석 기법을 도입하는 것",
-    "method": "린팅(linting)과 유사하지만 긍정적인 측면을 강조하는 정적 프로그램 분석 기법을 사용하여, 초급에서 중급 학습자를 위한 일반적인 Java 언어 구조와 관련된 20가지 Java Code Perfumes 카탈로그를 개발하고 학습자 코드에 적용하여 평가",
-    "result": "Code Perfumes가 학습자 코드에서 빈번하게 나타나며, Code Perfume 인스턴스가 많은 프로그램일수록 기능성과 가독성이 높고, Code Perfumes를 더 많이 적용한 학생들이 더 높은 성적을 달성하는 경향이 있음을 확인",
-    "limitation": "초록에서 명시적인 한계점은 언급되지 않았으나, 현재 카탈로그가 초급에서 중급 학습자 수준에 한정되어 있으며 Java 언어에만 적용되는 제약이 있고, 향후 다른 프로그래밍 언어로의 확장 및 더 다양한 학습 수준에 대한 Code Perfumes 개발이 필요할 것으로 보임"
+    "year": "2018",
+    "url": "https://arxiv.org/abs/1803.05689v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.ET"
+    ],
+    "purpose": "소스 코드의 결함을 식별하고 수정하는 비용을 최소화하기 위해 코드 리뷰를 자동으로 지원하는 도구를 개발하는 것",
+    "method": "StackOverflow의 프로그래머 지원 포럼 콘텐츠를 활용하여 입력 코드와 유사한 코드 조각이 포함된 게시물을 찾고, 문서 핑거프린팅(document fingerprinting) 기법을 사용해 소스 코드 간 유사도를 비교한 후 결함 가능성을 {Likely defective, Neutral, Unlikely to be defective} 척도로 판단",
+    "result": "300개 이상의 GitHub 오픈소스 저장소에서 소스 코드 샘플을 입력으로 실험한 결과, 올바르고 관련성 있는 결과를 식별하는 데 있어 90% 이상의 정밀도(precision)를 달성",
+    "limitation": "수동 코드 리뷰의 주관성과 시간 소모 문제를 보완하고자 했으나, StackOverflow 콘텐츠의 범위에 의존하는 한계가 있으며, 다양한 프로그래밍 언어나 도메인에 대한 일반화 가능성 및 확장성에 대한 추가 검증이 필요함"
   },
   {
-    "title": "Sentiment-Driven Community Detection in a Network of Perfume Preferences",
+    "title": "Review Beats Planning: Dual-Model Interaction Patterns for Code Synthesis",
+    "abstract": "How should two language models interact to produce better code than either can alone? The conventional approach -- a reasoning model plans, a code specialist implements -- seems natural but fails: on HumanEval+, plan-then-code degrades performance by 2.4 percentage points versus the code specialist alone. We show that reversing the interaction changes everything. When the code specialist generates freely and the reasoning model reviews instead of plans, the same two models on the same hardware achieve 90.2% pass@1 -- exceeding GPT-4o (87.2%) and O1 Preview (89.0%) -- on ~$2/hr of commodity GPU. Cross-benchmark validation across 542 problems (HumanEval+ and MBPP+) reveals a moderating variable: review effectiveness scales with specification richness, yielding 4x more improvement on richly-specified problems (+9.8pp) than on lean ones (+2.3pp), while remaining net-positive in both cases. The practical implication is twofold: compose models by their cognitive strengths (reviewers review, coders code), and invest in specification quality to amplify the returns.",
     "authors": [
-      "Kamand Kalashi",
-      "Sajjad Saed",
-      "Babak Teimourpour"
+      "Jan Miller"
     ],
-    "year": "2024",
-    "url": "http://arxiv.org/abs/2410.19177v2",
-    "source": "arxiv",
-    "purpose": "향수 네트워크에서 커뮤니티 탐지 기법을 적용하여 사용자가 선호하는 향수를 관련 클러스터로 그룹화함으로써 더 나은 추천 시스템을 구축하고 소비자 선호도에 대한 통찰력을 제공하는 것",
-    "method": "페르시아 소매 플랫폼 'Atrafshan'의 사용자 리뷰를 기반으로 이분 네트워크를 구성하고 향수 공동 선호 네트워크로 변환한 후, 이모지와 사용자 투표 시스템을 통합한 감성 분석을 개선하고 인접값과 사용자 평점을 60:40 비율로 결합하여 엣지 가중치를 조정한 뒤 커뮤니티 탐지 알고리즘을 적용",
-    "result": "감성 분석 및 엣지 가중치 개선을 통해 탐지된 커뮤니티의 모듈성이 향상되었고, 더 정확한 향수 그룹화가 이루어졌으며, 향수 네트워크에서 커뮤니티 탐지를 최초로 적용하여 소비자 선호도에 대한 새로운 통찰력을 제공함",
-    "limitation": "초록에서 명시적인 한계점은 언급되지 않았으나, 연구가 단일 페르시아 플랫폼 데이터에 한정되어 있어 일반화 가능성의 제약이 있을 수 있으며, 향후 다양한 플랫폼 및 언어로의 확장과 추천 시스템 최적화 및 마케팅 전략에의 실질적 적용이 과제로 남음"
+    "year": "2026",
+    "url": "https://arxiv.org/abs/2603.03406v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "두 언어 모델이 상호작용하여 단독 모델보다 더 나은 코드를 생성하는 최적의 협업 패턴을 규명하는 것",
+    "method": "코드 전문 모델이 먼저 자유롭게 코드를 생성하고, 추론 모델이 이를 검토하는 '리뷰 우선' 이중 모델 상호작용 패턴을 제안하고, HumanEval+와 MBPP+의 542개 문제에 걸쳐 교차 벤치마크 검증을 수행",
+    "result": "리뷰 우선 방식이 HumanEval+에서 90.2% pass@1을 달성하여 GPT-4o(87.2%) 및 O1 Preview(89.0%)를 초과했으며, 기존 계획-후-코딩 방식 대비 2.4%p 성능 저하를 역전시켰고, 사양이 풍부한 문제에서 +9.8pp, 간결한 문제에서도 +2.3pp의 성능 향상을 달성",
+    "limitation": "리뷰 효과가 사양의 풍부함에 따라 달라지는 조절 변수가 존재하며, 사양 품질이 낮은 경우 성능 향상 폭이 제한적이고, 약 $2/hr의 상용 GPU 환경에서 검증되어 다양한 하드웨어 환경에서의 일반화 가능성에 대한 추가 검증이 필요함"
   },
   {
-    "title": "Social Success of Perfumes",
+    "title": "AgenticSCR: An Autonomous Agentic Secure Code Review for Immature Vulnerabilities Detection",
+    "abstract": "Secure code review is critical at the pre-commit stage, where vulnerabilities must be caught early under tight latency and limited-context constraints. Existing SAST-based checks are noisy and often miss immature, context-dependent vulnerabilities, while standalone Large Language Models (LLMs) are constrained by context windows and lack explicit tool use. Agentic AI, which combine LLMs with autonomous decision-making, tool invocation, and code navigation, offer a promising alternative, but their effectiveness for pre-commit secure code review is not yet well understood. In this work, we introduce AgenticSCR, an agentic AI for secure code review for detecting immature vulnerabilities during the pre-commit stage, augmented by security-focused semantic memories. Using our own curated benchmark of immature vulnerabilities, tailored to the pre-commit secure code review, we empirically evaluate how accurate is our AgenticSCR for localizing, detecting, and explaining immature vulnerabilities. Our results show that AgenticSCR achieves at least 153% relatively higher percentage of correct code review comments than the static LLM-based baseline, and also substantially surpasses SAST tools. Moreover, AgenticSCR generates more correct comments in four out of five vulnerability types, consistently and significantly outperforming all other baselines. These findings highlight the importance of Agentic Secure Code Review, paving the way towards an emerging research area of immature vulnerability detection.",
     "authors": [
-      "Vaiva Vasiliauskaite",
-      "Tim S. Evans"
+      "Wachiraphan Charoenwet",
+      "Kla Tantithamthavorn",
+      "Patanamon Thongtanunam",
+      "Hong Yi Lin",
+      "Minwoo Jeong",
+      "Ming Wu"
+    ],
+    "year": "2026",
+    "url": "https://arxiv.org/abs/2601.19138v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.CR",
+      "cs.AI",
+      "cs.LG",
+      "cs.SE"
+    ],
+    "purpose": "프리-커밋 단계에서 미성숙한(immature) 취약점을 탐지하기 위한 자율 에이전틱 AI 기반의 안전한 코드 리뷰 시스템을 개발하고 평가하는 것",
+    "method": "LLM과 자율적 의사결정, 도구 호출, 코드 탐색을 결합한 에이전틱 AI 프레임워크인 AgenticSCR을 설계하고, 보안 중심의 시맨틱 메모리를 추가하여 프리-커밋 코드 리뷰에 특화된 자체 벤치마크 데이터셋으로 평가",
+    "result": "AgenticSCR은 정적 LLM 기반 베이스라인 대비 올바른 코드 리뷰 코멘트를 최소 153% 더 높은 비율로 생성하였으며, SAST 도구도 크게 능가하고, 5가지 취약점 유형 중 4가지에서 모든 베이스라인을 일관되게 초과하는 성능을 달성",
+    "limitation": "미성숙 취약점 탐지라는 새로운 연구 영역의 초기 단계로, 자체 구축한 벤치마크에 의존하며 다양한 실제 환경에서의 일반화 가능성 및 지연 시간·컨텍스트 제약 조건 하에서의 확장성에 대한 추가 연구가 필요함"
+  },
+  {
+    "title": "Previously on... Automating Code Review",
+    "abstract": "Modern Code Review (MCR) is a standard practice in software engineering, yet it demands substantial time and resource investments. Recent research has increasingly explored automating core review tasks using machine learning (ML) and deep learning (DL). As a result, there is substantial variability in task definitions, datasets, and evaluation procedures. This study provides the first comprehensive analysis of MCR automation research, aiming to characterize the field's evolution, formalize learning tasks, highlight methodological challenges, and offer actionable recommendations to guide future research. Focusing on the primary code review tasks, we systematically surveyed 691 publications and identified 24 relevant studies published between May 2015 and April 2024. Each study was analyzed in terms of tasks, models, metrics, baselines, results, validity concerns, and artifact availability. In particular, our analysis reveals significant potential for standardization, including 48 task metric combinations, 22 of which were unique to their original paper, and limited dataset reuse. We highlight challenges and derive concrete recommendations for examples such as the temporal bias threat, which are rarely addressed so far. Our work contributes to a clearer overview of the field, supports the framing of new research, helps to avoid pitfalls, and promotes greater standardization in evaluation practices.",
+    "authors": [
+      "Robert Heumüller",
+      "Frank Ortmeier"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2508.18003v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ],
+    "purpose": "현대 코드 리뷰(MCR) 자동화 연구의 현황을 종합적으로 분석하여 연구 분야의 발전을 특성화하고, 학습 태스크를 공식화하며, 방법론적 도전 과제를 강조하고, 미래 연구를 위한 실행 가능한 권고사항을 제공하는 것",
+    "method": "2015년 5월부터 2024년 4월 사이에 출판된 691개의 논문을 체계적으로 조사하여 24개의 관련 연구를 식별하고, 각 연구를 태스크, 모델, 메트릭, 베이스라인, 결과, 타당성 우려사항, 아티팩트 가용성 측면에서 분석하는 체계적 문헌 조사(systematic survey) 방법론 사용",
+    "result": "48가지 태스크-메트릭 조합이 존재하며 그 중 22가지는 원본 논문에서만 고유하게 사용되었고, 데이터셋 재사용이 제한적임을 발견하였으며, 표준화의 상당한 잠재력과 시간적 편향 위협 등 거의 다루어지지 않은 방법론적 도전 과제들을 도출하고 구체적인 권고사항을 제시함",
+    "limitation": "조사 범위가 2024년 4월까지로 제한되어 최신 연구가 반영되지 않을 수 있으며, 24개의 관련 연구만 최종 선별되어 분석 범위가 좁을 수 있고, 식별된 표준화 부재 및 시간적 편향 등의 문제들이 향후 연구에서 실제로 해결되어야 하는 후속 과제로 남아 있음"
+  },
+  {
+    "title": "SecureReviewer: Enhancing Large Language Models for Secure Code Review through Secure-aware Fine-tuning",
+    "abstract": "Identifying and addressing security issues during the early phase of the development lifecycle is critical for mitigating the long-term negative impacts on software systems. Code review serves as an effective practice that enables developers to check their teammates' code before integration into the codebase. To streamline the generation of review comments, various automated code review approaches have been proposed, where LLM-based methods have significantly advanced the capabilities of automated review generation. However, existing models primarily focus on general-purpose code review, their effectiveness in identifying and addressing security-related issues remains underexplored. Moreover, adapting existing code review approaches to target security issues faces substantial challenges, including data scarcity and inadequate evaluation metrics. To address these limitations, we propose SecureReviewer, a new approach designed for enhancing LLMs' ability to identify and resolve security-related issues during code review. Specifically, we first construct a dataset tailored for training and evaluating secure code review capabilities. Leveraging this dataset, we fine-tune LLMs to generate code review comments that can effectively identify security issues and provide fix suggestions with our proposed secure-aware fine-tuning strategy. To mitigate hallucination in LLMs and enhance the reliability of their outputs, we integrate the RAG technique, which grounds the generated comments in domain-specific security knowledge. Additionally, we introduce SecureBLEU, a new evaluation metric designed to assess the effectiveness of review comments in addressing security issues. Experimental results demonstrate that SecureReviewer outperforms state-of-the-art baselines in both security issue detection accuracy and the overall quality and practical utility of generated review comments.",
+    "authors": [
+      "Fang Liu",
+      "Simiao Liu",
+      "Yinghao Zhu",
+      "Xiaoli Lian",
+      "Li Zhang"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2510.26457v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.AI",
+      "cs.CL"
+    ],
+    "purpose": "소프트웨어 개발 초기 단계에서 코드 리뷰 시 보안 관련 이슈를 효과적으로 식별하고 해결할 수 있도록 LLM의 보안 코드 리뷰 능력을 향상시키는 것",
+    "method": "보안 코드 리뷰 학습 및 평가를 위한 전용 데이터셋 구축, 보안 인식 파인튜닝(secure-aware fine-tuning) 전략을 통한 LLM 파인튜닝, 도메인 특화 보안 지식 기반의 RAG 기법 통합, 그리고 보안 이슈 대응 효과를 평가하는 새로운 지표 SecureBLEU 도입",
+    "result": "SecureReviewer가 보안 이슈 탐지 정확도 및 생성된 리뷰 코멘트의 전반적인 품질과 실용성 측면에서 최신 베이스라인 모델들을 능가하는 성능을 달성함",
+    "limitation": "데이터 부족 및 기존 평가 지표의 부적절성 문제를 다루었으나, LLM의 환각(hallucination) 완전 해소의 어려움과 보안 특화 데이터셋의 규모 및 다양성 확장에 대한 후속 연구 필요성이 존재함"
+  },
+  {
+    "title": "DNA-Based Data Storage Systems: A Review of Implementations and Code Constructions",
+    "abstract": "In this review paper, we delve into the nascent field of molecular data storage, focusing on system implementations and code constructions. We start by providing an overview of basic concepts in synthetic and computational biology. Afterwards, we proceed with a review of the diverse approaches followed to implement such systems. In the process, we identify new problems in communication and coding theory, and discuss some relevant results pertaining to DNA sequence profiles, coded trace reconstruction, coding for DNA punchcard systems and coding for unique reconstruction.",
+    "authors": [
+      "Olgica Milenkovic",
+      "Chao Pan"
+    ],
+    "year": "2023",
+    "url": "https://arxiv.org/abs/2310.04694v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.ET",
+      "cs.IT"
+    ],
+    "purpose": "DNA 기반 데이터 저장 시스템의 구현 방식과 코드 구성에 대한 종합적인 리뷰를 제공하고, 해당 분야의 새로운 통신 및 코딩 이론 문제를 식별하는 것",
+    "method": "합성 생물학 및 계산 생물학의 기본 개념을 개요로 제시한 후, DNA 데이터 저장 시스템의 다양한 구현 접근법을 체계적으로 검토하는 문헌 리뷰 방식 사용",
+    "result": "DNA 시퀀스 프로파일, 코드화된 트레이스 재구성, DNA 펀치카드 시스템을 위한 코딩, 고유 재구성을 위한 코딩 등 관련 문제에 대한 주요 결과를 도출하고 통신 및 코딩 이론의 새로운 문제들을 식별함",
+    "limitation": "리뷰 논문으로서 새로운 실험적 결과를 직접 제시하지 않으며, 분자 데이터 저장 분야가 초기 단계에 있어 미해결 문제와 후속 연구가 다수 남아 있음"
+  },
+  {
+    "title": "On Assessing the Relevance of Code Reviews Authored by Generative Models",
+    "abstract": "The use of large language models like ChatGPT in code review offers promising efficiency gains but also raises concerns about correctness and safety. Existing evaluation methods for code review generation either rely on automatic comparisons to a single ground truth, which fails to capture the variability of human perspectives, or on subjective assessments of \"usefulness\", a highly ambiguous concept. We propose a novel evaluation approach based on what we call multi-subjective ranking. Using a dataset of 280 self-contained code review requests and corresponding comments from CodeReview StackExchange, multiple human judges ranked the quality of ChatGPT-generated comments alongside the top human responses from the platform. Results show that ChatGPT's comments were ranked significantly better than human ones, even surpassing StackExchange's accepted answers. Going further, our proposed method motivates and enables more meaningful assessments of generative AI's performance in code review, while also raising awareness of potential risks of unchecked integration into review processes.",
+    "authors": [
+      "Robert Heumüller",
+      "Frank Ortmeier"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2512.15466v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ],
+    "purpose": "코드 리뷰 생성에서 ChatGPT와 같은 대형 언어 모델의 성능을 평가하기 위한 새로운 평가 방법을 제안하고, 생성 AI의 코드 리뷰 품질을 인간 리뷰와 비교 평가하는 것",
+    "method": "'다중 주관적 순위 평가(multi-subjective ranking)' 방식을 제안하여, CodeReview StackExchange에서 수집한 280개의 코드 리뷰 요청과 댓글 데이터셋을 활용하고, 여러 인간 평가자가 ChatGPT 생성 댓글과 플랫폼의 상위 인간 응답의 품질을 순위로 평가",
+    "result": "ChatGPT가 생성한 코드 리뷰 댓글이 인간이 작성한 댓글보다 유의미하게 높은 순위를 받았으며, StackExchange의 채택된 답변(accepted answers)보다도 우수한 평가를 받음",
+    "limitation": "검증되지 않은 AI 코드 리뷰의 무분별한 통합에 따른 잠재적 위험성(정확성 및 안전성 문제)이 존재하며, 이에 대한 경각심 제고 및 후속 연구가 필요함"
+  },
+  {
+    "title": "Prompt-Driven Code Summarization: A Systematic Literature Review",
+    "abstract": "Software documentation is essential for program comprehension, developer onboarding, code review, and long-term maintenance. Yet producing quality documentation manually is time-consuming and frequently yields incomplete or inconsistent results. Large language models (LLMs) offer a promising solution by automatically generating natural language descriptions from source code, helping developers understand code more efficiently, facilitating maintenance, and supporting downstream activities such as defect localization and commit message generation. However, the effectiveness of LLMs in documentation tasks critically depends on how they are prompted. Properly structured instructions can substantially improve model performance, making prompt engineering-the design of input prompts to guide model behavior-a foundational technique in LLM-based software engineering. Approaches such as few-shot prompting, chain-of-thought reasoning, retrieval-augmented generation, and zero-shot learning show promise for code summarization, yet current research remains fragmented. There is limited understanding of which prompting strategies work best, for which models, and under what conditions. Moreover, evaluation practices vary widely, with most studies relying on overlap-based metrics that may not capture semantic quality. This systematic literature review consolidates existing evidence, categorizes prompting paradigms, examines their effectiveness, and identifies gaps to guide future research and practical adoption.",
+    "authors": [
+      "Afia Farjana",
+      "Zaiyu Cheng",
+      "Antonio Mastropaolo"
+    ],
+    "year": "2026",
+    "url": "https://arxiv.org/abs/2604.15385v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.LG"
+    ],
+    "purpose": "LLM 기반 코드 요약(문서화) 작업에서 프롬프트 엔지니어링 전략의 효과를 체계적으로 정리하고, 어떤 프롬프팅 방법이 어떤 모델과 조건에서 가장 효과적인지에 대한 통합적 이해를 제공하는 것",
+    "method": "체계적 문헌 검토(Systematic Literature Review)를 통해 기존 연구를 수집·분류하고, few-shot prompting, chain-of-thought reasoning, retrieval-augmented generation, zero-shot learning 등 다양한 프롬프팅 패러다임을 범주화하여 분석",
+    "result": "코드 요약에 활용되는 프롬프팅 전략들을 체계적으로 분류하고 각 전략의 효과를 정리하였으며, 현재 연구가 단편적으로 분산되어 있고 평가 방식이 일관되지 않음을 확인함",
+    "limitation": "대부분의 기존 연구가 의미적 품질을 충분히 반영하지 못하는 overlap 기반 평가 지표에 의존하고 있으며, 어떤 프롬프팅 전략이 어떤 모델 및 조건에서 최적인지에 대한 이해가 부족하여 향후 연구 및 실용적 적용을 위한 추가 연구가 필요함"
+  },
+  {
+    "title": "Large Language Model for Verilog Code Generation: Literature Review and the Road Ahead",
+    "abstract": "Code generation has emerged as a critical research area at the intersection of Software Engineering (SE) and Artificial Intelligence (AI), attracting significant attention from both academia and industry. Within this broader landscape, Verilog, as a representative hardware description language (HDL), plays a fundamental role in digital circuit design and verification, making its automated generation particularly significant for Electronic Design Automation (EDA). Consequently, recent research has increasingly focused on applying Large Language Models (LLMs) to Verilog code generation, particularly at the Register Transfer Level (RTL), exploring how these AI-driven techniques can be effectively integrated into hardware design workflows. Despite substantial research efforts have explored LLM applications in this domain, a comprehensive survey synthesizing these developments remains absent from the literature. This review fill addresses this gap by providing a systematic literature review of LLM-based methods for Verilog code generation, examining their effectiveness, limitations, and potential for advancing automated hardware design. The review encompasses research work from conferences and journals in the fields of SE, AI, and EDA, encompassing 70 papers published on venues, along with 32 high-quality preprint papers, bringing the total to 102 papers. By answering four key research questions, we aim to (1) identify the LLMs used for Verilog generation, (2) examine the datasets and metrics employed in evaluation, (3) categorize the techniques proposed for Verilog generation, and (4) analyze LLM alignment approaches for Verilog generation. Based on our findings, we have identified a series of limitations of existing studies. Finally, we have outlined a roadmap highlighting potential opportunities for future research endeavors in LLM-assisted hardware design.",
+    "authors": [
+      "Guang Yang",
+      "Wei Zheng",
+      "Xiang Chen",
+      "Dong Liang",
+      "Peng Hu",
+      "Yukui Yang",
+      "Shaohang Peng",
+      "Zhenghan Li",
+      "Jiahui Feng",
+      "Xiao Wei",
+      "Kexin Sun",
+      "Deyuan Ma",
+      "Haotian Cheng",
+      "Yiheng Shen",
+      "Xing Hu",
+      "Terry Yue Zhuo",
+      "David Lo"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2512.00020v2",
+    "source": "arXiv",
+    "categories": [
+      "cs.AR",
+      "cs.AI"
+    ],
+    "purpose": "LLM 기반 Verilog 코드 생성 연구에 대한 체계적인 문헌 조사를 통해 기존 연구의 효과성, 한계점, 그리고 자동화된 하드웨어 설계 발전 가능성을 종합적으로 분석하는 것",
+    "method": "SE, AI, EDA 분야의 학술 컨퍼런스 및 저널에서 발표된 70편의 논문과 32편의 고품질 프리프린트 논문을 포함한 총 102편의 논문을 대상으로 체계적 문헌 리뷰를 수행하고, 4가지 핵심 연구 질문(사용된 LLM 식별, 데이터셋 및 평가 지표 분석, 기술 분류, LLM 정렬 접근법 분석)을 통해 연구 동향을 분석",
+    "result": "Verilog 코드 생성에 사용된 LLM의 종류, 평가에 활용된 데이터셋 및 메트릭, 제안된 기법들의 분류 체계, LLM 정렬 접근법을 체계적으로 정리하였으며, 기존 연구의 한계점을 도출하고 LLM 기반 하드웨어 설계의 미래 연구 방향을 제시하는 로드맵을 수립",
+    "limitation": "기존 연구들의 일련의 한계점이 확인되었으며, LLM을 활용한 하드웨어 설계 자동화 분야에서 향후 연구가 필요한 미해결 과제들이 존재함. 또한 이 분야의 포괄적인 서베이가 부재했던 공백을 이번 연구가 처음으로 채우는 만큼, 추후 연구 발전에 따른 지속적인 업데이트가 필요할 수 있음"
+  },
+  {
+    "title": "Predicting Code Review Completion Time in Modern Code Review",
+    "abstract": "Context. Modern Code Review (MCR) is being adopted in both open source and commercial projects as a common practice. MCR is a widely acknowledged quality assurance practice that allows early detection of defects as well as poor coding practices. It also brings several other benefits such as knowledge sharing, team awareness, and collaboration.\n  Problem. In practice, code reviews can experience significant delays to be completed due to various socio-technical factors which can affect the project quality and cost. For a successful review process, peer reviewers should perform their review tasks in a timely manner while providing relevant feedback about the code change being reviewed. However, there is a lack of tool support to help developers estimating the time required to complete a code review prior to accepting or declining a review request.\n  Objective. Our objective is to build and validate an effective approach to predict the code review completion time in the context of MCR and help developers better manage and prioritize their code review tasks.\n  Method. We formulate the prediction of the code review completion time as a learning problem. In particular, we propose a framework based on regression models to (i) effectively estimate the code review completion time, and (ii) understand the main factors influencing code review completion time.",
+    "authors": [
+      "Moataz Chouchen",
+      "Jefferson Olongo",
+      "Ali Ouni",
+      "Mohamed Wiem Mkaouer"
+    ],
+    "year": "2021",
+    "url": "https://arxiv.org/abs/2109.15141v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.LG"
+    ],
+    "purpose": "현대 코드 리뷰(MCR) 환경에서 코드 리뷰 완료 시간을 예측하는 효과적인 접근법을 구축 및 검증하여, 개발자들이 코드 리뷰 작업을 더 잘 관리하고 우선순위를 정할 수 있도록 지원",
+    "method": "코드 리뷰 완료 시간 예측을 학습 문제로 정형화하고, 회귀 모델 기반 프레임워크를 제안하여 코드 리뷰 완료 시간을 추정하고 이에 영향을 미치는 주요 요인을 분석",
+    "result": "초록에 주요 실험 결과가 명시되지 않음",
+    "limitation": "초록에 한계점 또는 후속 과제가 명시되지 않음"
+  },
+  {
+    "title": "Code Review Agent Benchmark",
+    "abstract": "Software engineering agents have shown significant promise in writing code. As AI agents permeate code writing, and generate huge volumes of code automatically -- the matter of code quality comes front and centre. As the automatically generated code gets integrated into huge code-bases -- the issue of code review and broadly quality assurance becomes important. In this paper, we take a fresh look at the problem and curate a code review dataset for AI agents to work with. Our dataset called c-CRAB (pronounced see-crab) can evaluate agents for code review tasks. Specifically given a pull-request (which could be coming from code generation agents or humans), if a code review agent produces a review, our evaluation framework can asses the reviewing capability of the code review agents. Our evaluation framework is used to evaluate the state of the art today -- the open-source PR-agent, as well as commercial code review agents from Devin, Claude Code, and Codex.\n  Our c-CRAB dataset is systematically constructed from human reviews -- given a human review of a pull request instance we generate corresponding tests to evaluate the code review agent generated reviews. Such a benchmark construction gives us several insights. Firstly, the existing review agents taken together can solve only around 40% of the c-CRAB tasks, indicating the potential to close this gap by future research. Secondly, we observe that the agent reviews often consider different aspects from the human reviews -- indicating the potential for human-agent collaboration for code review that could be deployed in future software teams. Last but not the least, the agent generated tests from our data-set act as a held out test-suite and hence quality gate for agent generated reviews. What this will mean for future collaboration of code generation agents, test generation agents and code review agents -- remains to be investigated.",
+    "authors": [
+      "Yuntong Zhang",
+      "Zhiyuan Pan",
+      "Imam Nur Bani Yusuf",
+      "Haifeng Ruan",
+      "Ridwan Shariffdeen",
+      "Abhik Roychoudhury"
+    ],
+    "year": "2026",
+    "url": "https://arxiv.org/abs/2603.23448v3",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ],
+    "purpose": "AI 에이전트의 코드 리뷰 능력을 평가하기 위한 벤치마크 데이터셋(c-CRAB)을 구축하고, 현재 최신 코드 리뷰 에이전트들의 성능을 평가하는 것",
+    "method": "인간의 풀 리퀘스트 리뷰를 기반으로 체계적으로 데이터셋을 구성하고, 해당 리뷰에 대응하는 테스트를 생성하여 코드 리뷰 에이전트(PR-agent, Devin, Claude Code, Codex)의 리뷰 능력을 평가하는 프레임워크를 개발",
+    "result": "현재 최신 코드 리뷰 에이전트들이 c-CRAB 태스크의 약 40%만 해결할 수 있으며, 에이전트 리뷰는 인간 리뷰와 다른 측면을 고려하는 경향이 있어 인간-에이전트 협업 가능성을 시사함",
+    "limitation": "에이전트가 생성한 리뷰와 인간 리뷰 간의 격차를 좁히는 방법, 코드 생성 에이전트·테스트 생성 에이전트·코드 리뷰 에이전트 간의 미래 협업 방식에 대한 연구가 추가적으로 필요함"
+  },
+  {
+    "title": "Code Review Comprehension: Reviewing Strategies Seen Through Code Comprehension Theories",
+    "abstract": "Despite the popularity and importance of modern code review, the understanding of the cognitive processes that enable reviewers to analyze code and provide meaningful feedback is lacking. To address this gap, we observed and interviewed ten experienced reviewers while they performed 25 code reviews from their review queue. Since comprehending code changes is essential to perform code review and the primary challenge for reviewers, we focused our analysis on this cognitive process. Using Letovsky's model of code comprehension, we performed a theory-driven thematic analysis to investigate how reviewers apply code comprehension to navigate changes and provide feedback. Our findings confirm that code comprehension is fundamental to code review. We extend Letovsky's model to propose the Code Review Comprehension Model and demonstrate that code review, like code comprehension, relies on opportunistic strategies. These strategies typically begin with a context-building phase, followed by code inspection involving code reading, testing, and discussion management. To interpret and evaluate the proposed change, reviewers construct a mental model of the change as an extension of their understanding of the overall software system and contrast mental representations of expected and ideal solutions against the actual implementation. Based on our findings, we discuss how review tools and practices can better support reviewers in employing their strategies and in forming understanding. Data and material: https://doi.org/10.5281/zenodo.14748996",
+    "authors": [
+      "Pavlína Wurzel Gonçalves",
+      "Pooja Rani",
+      "Margaret-Anne Storey",
+      "Diomidis Spinellis",
+      "Alberto Bacchelli"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2503.21455v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "현대 코드 리뷰에서 리뷰어가 코드를 분석하고 의미 있는 피드백을 제공하는 인지적 과정, 특히 코드 이해(comprehension) 과정을 규명하는 것",
+    "method": "10명의 경험 있는 리뷰어를 대상으로 25개의 코드 리뷰 수행을 관찰 및 인터뷰하고, Letovsky의 코드 이해 모델을 기반으로 이론 주도적 주제 분석(theory-driven thematic analysis)을 수행",
+    "result": "코드 이해가 코드 리뷰의 핵심임을 확인하고, Letovsky 모델을 확장한 '코드 리뷰 이해 모델(Code Review Comprehension Model)'을 제안하였으며, 코드 리뷰가 기회주의적 전략(opportunistic strategies)에 의존하고 맥락 구축 단계 후 코드 읽기·테스트·토론 관리를 포함하는 코드 검사 단계로 진행됨을 밝힘",
+    "limitation": "연구 참여자가 10명으로 표본 규모가 제한적이며, 특정 리뷰어 및 프로젝트 환경에 국한된 관찰로 인해 결과의 일반화 가능성에 한계가 있을 수 있고, 리뷰 도구 및 실천 방식 개선을 위한 구체적 후속 연구가 필요함"
+  },
+  {
+    "title": "Quo Vadis, Code Review? Exploring the Future of Code Review",
+    "abstract": "Context: Code review has long been a core practice in collaborative software engineering. As automation becomes increasingly embedded in development workflows, the role and functioning of code review are subject to change.\n  Objective: This study explores how professional developers anticipate the evolution of code review and identifies emerging tensions reflected in these expectations.\n  Method: We conducted a cross-sectional survey with 100 developers across five software-driven companies. The survey captured estimates of current review time and reviewed artifacts, as well as anticipated changes over a five-year horizon. Open-ended questions invited reflections on the future of code review. Quantitative responses were analyzed descriptively, and open-ended responses were independently coded by multiple researchers using thematic analysis to identify recurring patterns in participant responses.\n  Results: Practitioners expect code review to remain essential, anticipating stable or increased time investment and a broader range of reviewed artifacts over the next five years. In open-ended responses, many participants explicitly referenced AI and large language models (LLMs), describing increasing automation in both code authoring and reviewing, including scenarios in which automated systems operate in both roles.\n  Conclusion: Our analysis suggests emerging tensions concerning understanding, accountability, and trust in automation-mediated code review. These tensions provide early empirical signals of socio-technical challenges and position code review as a concrete setting for examining the implications of LLM integration in collaborative software engineering.",
+    "authors": [
+      "Michael Dorner",
+      "Andreas Bauer",
+      "Darja Šmite",
+      "Lukas Thode",
+      "Daniel Mendez",
+      "Ricardo Britto",
+      "Stephan Lukasczyk",
+      "Ehsan Zabardast",
+      "Michael Kormann"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2508.06879v5",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "자동화가 개발 워크플로우에 점점 더 내재화되는 상황에서 전문 개발자들이 코드 리뷰의 미래를 어떻게 예측하는지 탐색하고, 이러한 기대에 반영된 새로운 긴장 관계를 파악하는 것",
+    "method": "5개 소프트웨어 기업의 개발자 100명을 대상으로 횡단면 설문조사를 실시하였으며, 현재 리뷰 시간 및 검토 산출물에 대한 추정치와 5년 후 예상 변화를 수집하였고, 개방형 응답은 복수의 연구자가 주제 분석(thematic analysis)을 통해 독립적으로 코딩하고 정량적 응답은 기술 통계로 분석함",
+    "result": "실무자들은 코드 리뷰가 앞으로도 필수적으로 유지될 것이며, 향후 5년간 리뷰 시간 투자가 안정적이거나 증가하고 검토 산출물의 범위도 넓어질 것으로 예상하였으며, 많은 참여자들이 AI 및 LLM을 명시적으로 언급하며 코드 작성과 리뷰 모두에서 자동화가 증가하는 시나리오를 묘사함",
+    "limitation": "단일 시점의 횡단면 조사로 인한 인과관계 파악의 한계가 있으며, 5개 기업 100명을 대상으로 한 제한된 표본으로 일반화에 한계가 있고, 코드 리뷰 자동화와 LLM 통합에 따른 이해, 책임, 신뢰 문제 등 사회기술적 도전 과제에 대한 후속 심층 연구가 필요함"
+  },
+  {
+    "title": "Towards Automating Code Review Activities",
+    "abstract": "Code reviews are popular in both industrial and open source projects. The benefits of code reviews are widely recognized and include better code quality and lower likelihood of introducing bugs. However, since code review is a manual activity it comes at the cost of spending developers' time on reviewing their teammates' code.\n  Our goal is to make the first step towards partially automating the code review process, thus, possibly reducing the manual costs associated with it. We focus on both the contributor and the reviewer sides of the process, by training two different Deep Learning architectures. The first one learns code changes performed by developers during real code review activities, thus providing the contributor with a revised version of her code implementing code transformations usually recommended during code review before the code is even submitted for review. The second one automatically provides the reviewer commenting on a submitted code with the revised code implementing her comments expressed in natural language.\n  The empirical evaluation of the two models shows that, on the contributor side, the trained model succeeds in replicating the code transformations applied during code reviews in up to 16% of cases. On the reviewer side, the model can correctly implement a comment provided in natural language in up to 31% of cases. While these results are encouraging, more research is needed to make these models usable by developers.",
+    "authors": [
+      "Rosalia Tufano",
+      "Luca Pascarella",
+      "Michele Tufano",
+      "Denys Poshyvanyk",
+      "Gabriele Bavota"
+    ],
+    "year": "2021",
+    "url": "https://arxiv.org/abs/2101.02518v4",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "코드 리뷰 프로세스를 부분적으로 자동화하여 개발자들이 코드 리뷰에 소비하는 수동 비용을 줄이는 것을 목표로 함",
+    "method": "두 가지 딥러닝 아키텍처를 학습시킴. 첫 번째는 실제 코드 리뷰 활동에서 개발자들이 수행한 코드 변경을 학습하여 기여자에게 수정된 코드를 제공하고, 두 번째는 리뷰어의 자연어 댓글을 기반으로 수정된 코드를 자동으로 생성함",
+    "result": "기여자 측 모델은 코드 리뷰 중 적용된 코드 변환을 최대 16% 케이스에서 재현하는 데 성공하였고, 리뷰어 측 모델은 자연어로 제공된 댓글을 최대 31% 케이스에서 올바르게 구현함",
+    "limitation": "모델의 성능이 아직 개발자들이 실제로 사용하기에는 부족하며, 실용적으로 활용 가능한 수준으로 만들기 위해 추가적인 연구가 필요함"
+  },
+  {
+    "title": "A Systematic Literature Review of Automated ICD Coding and Classification Systems using Discharge Summaries",
+    "abstract": "Codification of free-text clinical narratives have long been recognised to be beneficial for secondary uses such as funding, insurance claim processing and research. The current scenario of assigning codes is a manual process which is very expensive, time-consuming and error prone. In recent years, many researchers have studied the use of Natural Language Processing (NLP), related Machine Learning (ML) and Deep Learning (DL) methods and techniques to resolve the problem of manual coding of clinical narratives and to assist human coders to assign clinical codes more accurately and efficiently. This systematic literature review provides a comprehensive overview of automated clinical coding systems that utilises appropriate NLP, ML and DL methods and techniques to assign ICD codes to discharge summaries. We have followed the Preferred Reporting Items for Systematic Reviews and Meta-Analyses(PRISMA) guidelines and conducted a comprehensive search of publications from January, 2010 to December 2020 in four academic databases- PubMed, ScienceDirect, Association for Computing Machinery(ACM) Digital Library, and the Association for Computational Linguistics(ACL) Anthology. We reviewed 7,556 publications; 38 met the inclusion criteria. This review identified: datasets having discharge summaries; NLP techniques along with some other data extraction processes, different feature extraction and embedding techniques. To measure the performance of classification methods, different evaluation metrics are used. Lastly, future research directions are provided to scholars who are interested in automated ICD code assignment. Efforts are still required to improve ICD code prediction accuracy, availability of large-scale de-identified clinical corpora with the latest version of the classification system. This can be a platform to guide and share knowledge with the less experienced coders and researchers.",
+    "authors": [
+      "Rajvir Kaur",
+      "Jeewani Anupama Ginige",
+      "Oliver Obst"
+    ],
+    "year": "2021",
+    "url": "https://arxiv.org/abs/2107.10652v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.CL",
+      "cs.LG"
+    ],
+    "purpose": "퇴원 요약서를 활용한 자동 ICD 코딩 및 분류 시스템에 대한 NLP, ML, DL 방법론의 연구 동향을 체계적으로 검토하고 종합적인 개요를 제공하는 것",
+    "method": "PRISMA 가이드라인을 따라 2010년 1월부터 2020년 12월까지 PubMed, ScienceDirect, ACM Digital Library, ACL Anthology 4개 학술 데이터베이스에서 총 7,556편의 논문을 검색하고 38편의 논문을 선별하여 체계적 문헌 검토를 수행",
+    "result": "퇴원 요약서 데이터셋, NLP 기법 및 데이터 추출 프로세스, 특징 추출 및 임베딩 기법, 분류 방법의 성능 평가 지표 등을 식별하고 자동 ICD 코드 할당 시스템의 연구 현황을 종합적으로 정리함",
+    "limitation": "ICD 코드 예측 정확도 향상이 여전히 필요하며, 최신 버전의 분류 체계를 반영한 대규모 비식별화 임상 코퍼스의 가용성이 부족하고, 경험이 적은 코더 및 연구자를 위한 지식 공유 플랫폼 구축이 필요함"
+  },
+  {
+    "title": "Code Review For and By Scientists",
+    "abstract": "We describe two pilot studies of code review by and for scientists. Our principal findings are that scientists are enthusiastic, but need to be shown code review in action, and that just-in-time review of small code changes is more likely to succeed than large-scale end-of-work reviews.",
+    "authors": [
+      "Marian Petre",
+      "Greg Wilson"
+    ],
+    "year": "2014",
+    "url": "https://arxiv.org/abs/1407.5648v2",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "과학자들을 위한 코드 리뷰 방식의 효과성을 탐구하고 적합한 코드 리뷰 모델을 찾는 것",
+    "method": "과학자들을 대상으로 두 가지 파일럿 연구를 수행하여 코드 리뷰 실천 방식을 실험적으로 조사",
+    "result": "과학자들은 코드 리뷰에 열정적이나 실제 시연이 필요하며, 대규모 최종 리뷰보다 소규모 코드 변경에 대한 즉시(just-in-time) 리뷰가 더 효과적임을 발견",
+    "limitation": "파일럿 연구 수준으로 규모가 작아 일반화에 한계가 있으며, 다양한 과학 분야와 더 큰 규모의 연구가 후속 과제로 남아 있음"
+  },
+  {
+    "title": "On The Effect Of Code Review On Code Smells",
+    "abstract": "Code smells are symptoms of poor design quality. Since code review is a process that also aims at improving code quality, we investigate whether and how code review influences the severity of code smells. In this study, we analyze more than 21,000 code reviews belonging to seven Java open-source projects; we find that active and participated code reviews have a significant influence on the likelihood of reducing the severity of code smells. This result seems to confirm the expectations around code review's influence on code quality. However, by manually investigating 365 cases in which the severity of a code smell in a file was reduced with a review, we found that-in 95% of the cases-the reduction was a side effect of changes that reviewers requested on matters unrelated to code smells. Data and materials [https://doi.org/10.5281/zenodo.3588501].",
+    "authors": [
+      "Luca Pascarella",
+      "Davide Spadini",
+      "Fabio Palomba",
+      "Alberto Bacchelli"
     ],
     "year": "2019",
-    "url": "http://arxiv.org/abs/1909.05726v1",
-    "source": "arxiv",
-    "purpose": "향수의 노트 구성(어코드)이 향수의 상업적 성공(고객 평가 수)에 미치는 영향을 이해하고, 성공적인 향수 공식을 발굴하는 것",
-    "method": "향수 및 향기 디스크립터(노트) 데이터를 분석하여 고객 평가가 많은 향수에서 과대 표현된 어코드를 도출하고, 네트워크 중심성(network centrality)을 활용하여 노트 구성을 강화하는 노트를 파악",
-    "result": "가장 인기 있는 노트와 과대 표현된 어코드는 실제 향수 평가에 강한 영향을 미치는 것들과 다르며, 머스크·바닐라 같은 높은 연결도(degree)를 가진 노트와 플로럴 노트 같은 일반적 명칭의 노트들이 어코드를 가장 많이 강화하는 것으로 나타남",
-    "limitation": "고객 평가 수를 성공 지표로 사용하는 것의 한계가 있을 수 있으며, 향수사들이 다차원적 향기 구성 공간을 탐색하는 도구로서의 실용적 검증 및 향후 확장 연구가 필요함"
+    "url": "https://arxiv.org/abs/1912.10098v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "코드 리뷰가 코드 스멜의 심각도에 영향을 미치는지, 그리고 어떻게 영향을 미치는지를 조사하는 것",
+    "method": "7개의 Java 오픈소스 프로젝트에서 21,000건 이상의 코드 리뷰를 분석하고, 코드 스멜 심각도가 감소한 365개의 사례를 수동으로 조사",
+    "result": "활발하고 참여도 높은 코드 리뷰는 코드 스멜 심각도를 줄일 가능성에 유의미한 영향을 미치며, 수동 조사 결과 95%의 경우에서 심각도 감소는 리뷰어가 코드 스멜과 무관한 사항에 대해 요청한 변경의 부수적 효과임을 발견",
+    "limitation": "코드 스멜 심각도 감소의 대부분이 코드 스멜을 직접 겨냥한 것이 아닌 부수적 효과로 발생한다는 점에서, 코드 리뷰가 의도적으로 코드 스멜을 개선하는 효과는 제한적임을 시사하며, 추후 리뷰어가 코드 스멜을 명시적으로 인식하고 개선하도록 유도하는 방안 연구가 필요함"
+  },
+  {
+    "title": "Automating Code Review: A Systematic Literature Review",
+    "abstract": "Code Review consists in assessing the code written by teammates with the goal of increasing code quality. Empirical studies documented the benefits brought by such a practice that, however, has its cost to pay in terms of developers' time. For this reason, researchers have proposed techniques and tools to automate code review tasks such as the reviewers selection (i.e., identifying suitable reviewers for a given code change) or the actual review of a given change (i.e., recommending improvements to the contributor as a human reviewer would do). Given the substantial amount of papers recently published on the topic, it may be challenging for researchers and practitioners to get a complete overview of the state-of-the-art.\n  We present a systematic literature review (SLR) featuring 119 papers concerning the automation of code review tasks. We provide: (i) a categorization of the code review tasks automated in the literature; (ii) an overview of the under-the-hood techniques used for the automation, including the datasets used for training data-driven techniques; (iii) publicly available techniques and datasets used for their evaluation, with a description of the evaluation metrics usually adopted for each task.\n  The SLR is concluded by a discussion of the current limitations of the state-of-the-art, with insights for future research directions.",
+    "authors": [
+      "Rosalia Tufano",
+      "Gabriele Bavota"
+    ],
+    "year": "2025",
+    "url": "https://arxiv.org/abs/2503.09510v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "코드 리뷰 자동화와 관련된 연구들의 전반적인 현황을 체계적으로 정리하여 연구자와 실무자들이 최신 기술 동향을 파악할 수 있도록 종합적인 개요를 제공하는 것",
+    "method": "119편의 논문을 대상으로 체계적 문헌 리뷰(SLR)를 수행하여 코드 리뷰 자동화 작업의 분류, 자동화에 사용된 기법, 학습 데이터셋, 공개 도구 및 평가 지표를 분석",
+    "result": "코드 리뷰 자동화 작업의 범주화(리뷰어 선정, 코드 변경 리뷰 등), 자동화에 활용된 기법 및 데이터셋 개요, 각 작업별 평가 지표와 공개된 도구 및 데이터셋 목록을 체계적으로 정리하여 제공",
+    "limitation": "현재 코드 리뷰 자동화 연구의 한계점이 존재하며, 이를 바탕으로 향후 연구 방향에 대한 인사이트를 제시하였으나 구체적인 미래 연구 과제는 추가적인 탐색이 필요함"
+  },
+  {
+    "title": "Towards debiasing code review support",
+    "abstract": "Cognitive biases appear during code review. They significantly impact the creation of feedback and how it is interpreted by developers. These biases can lead to illogical reasoning and decision-making, violating one of the main hypotheses supporting code review: developers' accurate and objective code evaluation. This paper explores harmful cases caused by cognitive biases during code review and potential solutions to avoid such cases or mitigate their effects. In particular, we design several prototypes covering confirmation bias and decision fatigue. We rely on a developer-centered design approach by conducting usability tests and validating the prototype with a user experience questionnaire (UEQ) and participants' feedback. We show that some techniques could be implemented in existing code review tools as they are well accepted by reviewers and help prevent behavior detrimental to code review. This work provides a solid first approach to treating cognitive bias in code review.",
+    "authors": [
+      "Tobias Jetzen",
+      "Xavier Devroey",
+      "Nicolas Matton",
+      "Benoît Vanderose"
+    ],
+    "year": "2024",
+    "url": "https://arxiv.org/abs/2407.01407v1",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "코드 리뷰 과정에서 발생하는 인지 편향(cognitive bias)의 해로운 사례를 탐구하고, 이를 방지하거나 완화할 수 있는 솔루션을 설계하는 것",
+    "method": "확증 편향(confirmation bias)과 결정 피로(decision fatigue)를 다루는 여러 프로토타입을 설계하고, 개발자 중심 설계 접근법을 통해 사용성 테스트, 사용자 경험 설문지(UEQ), 참가자 피드백으로 프로토타입을 검증",
+    "result": "일부 기법들이 기존 코드 리뷰 도구에 구현 가능하며, 리뷰어들에게 잘 수용되고 코드 리뷰에 해로운 행동을 방지하는 데 도움이 됨을 확인하였고, 코드 리뷰에서 인지 편향을 다루는 첫 번째 견고한 접근법을 제시",
+    "limitation": "초기 접근법으로서의 한계가 있으며, 실제 코드 리뷰 환경에서의 장기적 효과 검증 및 확증 편향과 결정 피로 외 다른 인지 편향에 대한 추가 연구가 후속 과제로 남아 있음"
+  },
+  {
+    "title": "CodeAgent: Autonomous Communicative Agents for Code Review",
+    "abstract": "Code review, which aims at ensuring the overall quality and reliability of software, is a cornerstone of software development. Unfortunately, while crucial, Code review is a labor-intensive process that the research community is looking to automate. Existing automated methods rely on single input-output generative models and thus generally struggle to emulate the collaborative nature of code review. This work introduces \\tool{}, a novel multi-agent Large Language Model (LLM) system for code review automation. CodeAgent incorporates a supervisory agent, QA-Checker, to ensure that all the agents' contributions address the initial review question. We evaluated CodeAgent on critical code review tasks: (1) detect inconsistencies between code changes and commit messages, (2) identify vulnerability introductions, (3) validate code style adherence, and (4) suggest code revision. The results demonstrate CodeAgent's effectiveness, contributing to a new state-of-the-art in code review automation. Our data and code are publicly available (\\url{https://github.com/Code4Agent/codeagent}).",
+    "authors": [
+      "Xunzhu Tang",
+      "Kisub Kim",
+      "Yewei Song",
+      "Cedric Lothritz",
+      "Bei Li",
+      "Saad Ezzini",
+      "Haoye Tian",
+      "Jacques Klein",
+      "Tegawende F. Bissyande"
+    ],
+    "year": "2024",
+    "url": "https://arxiv.org/abs/2402.02172v5",
+    "source": "arXiv",
+    "categories": [
+      "cs.SE"
+    ],
+    "purpose": "소프트웨어 코드 리뷰 자동화를 위해 다중 에이전트 LLM 시스템을 개발하여 협업적 코드 리뷰 프로세스를 에뮬레이션하는 것",
+    "method": "감독 에이전트(QA-Checker)를 포함한 다중 에이전트 LLM 시스템(CodeAgent)을 구축하여 코드 변경과 커밋 메시지 불일치 감지, 취약점 도입 식별, 코드 스타일 준수 검증, 코드 수정 제안 등 4가지 코드 리뷰 태스크에 적용",
+    "result": "CodeAgent가 코드 리뷰 자동화에서 효과적임을 입증하였으며, 코드 리뷰 자동화 분야에서 새로운 최첨단(state-of-the-art) 성능을 달성함",
+    "limitation": "초록에서 명시적인 한계점은 언급되지 않았으나, 기존 단일 입출력 생성 모델 방식과의 비교에 초점이 맞춰져 있어 실제 대규모 소프트웨어 프로젝트에서의 확장성 및 다양한 프로그래밍 언어에 대한 일반화 가능성은 추가 연구가 필요할 수 있음"
   }
 ]

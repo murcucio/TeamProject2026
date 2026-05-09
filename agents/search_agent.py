@@ -1,4 +1,4 @@
-"""Search Agent that accepts a topic and calls the arXiv search service."""
+"""Search Agent that accepts a topic and runs the paper search flow."""
 
 from pathlib import Path
 import sys
@@ -7,7 +7,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from services.search_service import demo_arxiv_search
+from services.search_service import run_search
 
 
 class SearchAgent:
@@ -23,9 +23,9 @@ class SearchAgent:
 
         print(f"입력 주제: {topic}")
         print(f"검색 키워드: {keyword}")
-        print("검색 키워드가 API 요청에 사용될 준비가 되었습니다.")
+        print("검색 키워드로 컴퓨터 분야 논문 검색을 시작합니다.")
 
-        demo_arxiv_search(keyword)
+        run_search(keyword)
         return keyword
 
 
