@@ -8,6 +8,7 @@ import re
 import socket
 import time
 import xml.etree.ElementTree as ET
+from difflib import SequenceMatcher
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote_plus, urlencode
 from urllib.request import Request, urlopen
@@ -31,6 +32,8 @@ MIN_ABSTRACT_WORDS = 40
 # 검색 주제와 최소한 한 번은 직접 맞닿아야 다음 단계로 넘긴다.
 MIN_TOPIC_MATCH_COUNT = 1
 MIN_METADATA_AUTHORS = 1
+TITLE_SIMILARITY_THRESHOLD = 0.92
+TITLE_TOKEN_OVERLAP_THRESHOLD = 0.8
 
 COMPUTER_SCIENCE_HINTS = {
     "code",
@@ -136,6 +139,39 @@ def is_computer_science_paper(paper: dict) -> bool:
     return bool(paper_tokens & COMPUTER_SCIENCE_HINTS)
 
 
+def normalize_title_for_dedup(title: str) -> str:
+    # 부호, 대시, 콜론 차이 때문에 같은 논문이 따로 남지 않도록 제목을 정규화한다.
+    normalized = title.lower().strip()
+    normalized = re.sub(r"[-–—:/,.;()\\[\\]{}]", " ", normalized)
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized
+
+
+def is_similar_title(left: str, right: str) -> bool:
+    # 제목이 완전히 같지 않아도, 표기 차이만 있는 경우는 중복으로 본다.
+    left_normalized = normalize_title_for_dedup(left)
+    right_normalized = normalize_title_for_dedup(right)
+
+    if not left_normalized or not right_normalized:
+        return False
+    if left_normalized == right_normalized:
+        return True
+    if left_normalized in right_normalized or right_normalized in left_normalized:
+        return True
+
+    similarity = SequenceMatcher(None, left_normalized, right_normalized).ratio()
+    if similarity >= TITLE_SIMILARITY_THRESHOLD:
+        return True
+
+    left_tokens = set(left_normalized.split())
+    right_tokens = set(right_normalized.split())
+    if not left_tokens or not right_tokens:
+        return False
+
+    overlap_ratio = len(left_tokens & right_tokens) / max(min(len(left_tokens), len(right_tokens)), 1)
+    return overlap_ratio >= TITLE_TOKEN_OVERLAP_THRESHOLD
+
+
 def deduplicate_papers(papers: list[dict]) -> list[dict]:
     """Remove duplicates using URL first, then normalized title/year."""
     seen_urls: set[str] = set()
@@ -146,12 +182,18 @@ def deduplicate_papers(papers: list[dict]) -> list[dict]:
         # URL이 같으면 같은 논문일 가능성이 가장 높고,
         # URL이 달라도 제목/연도가 같으면 중복 후보로 본다.
         normalized_url = paper.get("url", "").strip().lower().rstrip("/")
-        normalized_title = re.sub(r"\s+", " ", paper.get("title", "").strip().lower())
+        normalized_title = normalize_title_for_dedup(paper.get("title", ""))
         title_year_key = (normalized_title, str(paper.get("year", "")).strip())
 
         if normalized_url and normalized_url in seen_urls:
             continue
         if title_year_key in seen_title_year:
+            continue
+        if any(
+            existing_year == title_year_key[1]
+            and is_similar_title(existing_title, normalized_title)
+            for existing_title, existing_year in seen_title_year
+        ):
             continue
 
         if normalized_url:

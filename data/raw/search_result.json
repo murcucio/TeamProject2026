@@ -1,267 +1,526 @@
 [
   {
-    "title": "Large Language Models for Software Engineering: A Systematic Literature Review",
-    "abstract": "Large Language Models (LLMs) have significantly impacted numerous domains, including Software Engineering (SE). Many recent publications have explored LLMs applied to various SE tasks. Nevertheless, a comprehensive understanding of the application, effects, and possible limitations of LLMs on SE is still in its early stages. To bridge this gap, we conducted a Systematic Literature Review (SLR) on LLM4SE, with a particular focus on understanding how LLMs can be exploited to optimize processes and outcomes. We selected and analyzed 395 research articles from January 2017 to January 2024 to answer four key Research Questions (RQs). In RQ1, we categorize different LLMs that have been employed in SE tasks, characterizing their distinctive features and uses. In RQ2, we analyze the methods used in data collection, pre-processing, and application, highlighting the role of well-curated datasets for successful LLM for SE implementation. RQ3 investigates the strategies employed to optimize and evaluate the performance of LLMs in SE. Finally, RQ4 examines the specific SE tasks where LLMs have shown success to date, illustrating their practical contributions to the field. From the answers to these RQs, we discuss the current state-of-the-art and trends, identifying gaps in existing research, and highlighting promising areas for future study. Our artifacts are publicly available at https://github.com/security-pride/LLM4SE_SLR.",
+    "title": "From Pilots to Practices: A Scoping Review of GenAI-Enabled Personalization in Computer Science Education",
+    "abstract": "Generative AI enables personalized computer science education at scale, yet questions remain about whether such personalization supports or undermines learning. This scoping review synthesizes 32 studies (2023-2025) purposively sampled from 259 records to map personalization mechanisms and effectiveness signals in higher-education computer science contexts. We identify five application domains: intelligent tutoring, personalized materials, formative feedback, AI-augmented assessment, and code review, and analyze how design choices shape learning outcomes. Designs incorporating explanation-first guidance, solution withholding, graduated hint ladders, and artifact grounding (student code, tests, and rubrics) consistently show more positive learning processes than unconstrained chat interfaces. Successful implementations share four patterns: context-aware tutoring anchored in student artifacts, multi-level hint structures requiring reflection, composition with traditional CS infrastructure (autograders and rubrics), and human-in-the-loop quality assurance. We propose an exploration-first adoption framework emphasizing piloting, instrumentation, learning-preserving defaults, and evidence-based scaling. Recurrent risks include academic integrity, privacy, bias and equity, and over-reliance, and we pair these with operational mitigation. The evidence supports generative AI as a mechanism for precision scaffolding when embedded in audit-ready workflows that preserve productive struggle while scaling personalized support.",
     "authors": [
-      "Xinying Hou",
-      "Yanjie Zhao",
-      "Yue Liu",
-      "Zhou Yang",
-      "Kailong Wang",
-      "Li Li",
-      "Xiapu Luo",
-      "David Lo",
-      "John C. Grundy",
-      "Haoyu Wang"
+      "Iman Reihanian",
+      "Yunfei Hou",
+      "Qingquan Sun"
     ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/000f964393dafe113a8e66734d63b2a145844159",
-    "year": "2023",
-    "categories": []
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2512.20714v1",
+    "year": "2025",
+    "categories": [
+      "cs.AI",
+      "cs.CY",
+      "cs.HC"
+    ]
   },
   {
-    "title": "Software Testing With Large Language Models: Survey, Landscape, and Vision",
-    "abstract": "Pre-trained large language models (LLMs) have recently emerged as a breakthrough technology in natural language processing and artificial intelligence, with the ability to handle large-scale datasets and exhibit remarkable performance across a wide range of tasks. Meanwhile, software testing is a crucial undertaking that serves as a cornerstone for ensuring the quality and reliability of software products. As the scope and complexity of software systems continue to grow, the need for more effective software testing techniques becomes increasingly urgent, making it an area ripe for innovative approaches such as the use of LLMs. This paper provides a comprehensive review of the utilization of LLMs in software testing. It analyzes 102 relevant studies that have used LLMs for software testing, from both the software testing and LLMs perspectives. The paper presents a detailed discussion of the software testing tasks for which LLMs are commonly used, among which test case preparation and program repair are the most representative. It also analyzes the commonly used LLMs, the types of prompt engineering that are employed, as well as the accompanied techniques with these LLMs. It also summarizes the key challenges and potential opportunities in this direction. This work can serve as a roadmap for future research in this area, highlighting potential avenues for exploration, and identifying gaps in our current understanding of the use of LLMs in software testing.",
+    "title": "Human-AI Synergy in Agentic Code Review",
+    "abstract": "Code review is a critical software engineering practice where developers review code changes before integration to ensure code quality, detect defects, and improve maintainability. In recent years, AI agents that can understand code context, plan review actions, and interact with development environments have been increasingly integrated into the code review process. However, there is limited empirical evidence to compare the effectiveness of AI agents and human reviewers in collaborative workflows. To address this gap, we conduct a large-scale empirical analysis of 278,790 code review conversations across 300 open-source GitHub projects. In our study, we aim to compare the feedback differences provided by human reviewers and AI agents. We investigate human-AI collaboration patterns in review conversations to understand how interaction shapes review outcomes. Moreover, we analyze the adoption of code suggestions provided by human reviewers and AI agents into the codebase and how adopted suggestions change code quality. We find that human reviewers provide additional feedback than AI agents, including understanding, testing, and knowledge transfer. Human reviewers exchange 11.8% more rounds when reviewing AI-generated code than human-written code. Moreover, code suggestions made by AI agents are adopted into the codebase at a significantly lower rate than suggestions proposed by human reviewers. Over half of unadopted suggestions from AI agents are either incorrect or addressed through alternative fixes by developers. When adopted, suggestions provided by AI agents produce significantly larger increases in code complexity and code size than suggestions provided by human reviewers. Our findings suggest that while AI agents can scale defect screening, human oversight remains critical for ensuring suggestion quality and providing contextual feedback that AI agents lack.",
     "authors": [
-      "Junjie Wang",
-      "Yuchao Huang",
-      "Chunyang Chen",
-      "Zhe Liu",
-      "Song Wang",
-      "Qing Wang"
+      "Suzhen Zhong",
+      "Shayan Noei",
+      "Ying Zou",
+      "Bram Adams"
     ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/f43b8a87a96f8abc2467b90538b643a6061416e9",
-    "year": "2023",
-    "categories": []
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2603.15911v1",
+    "year": "2026",
+    "categories": [
+      "cs.SE"
+    ]
   },
   {
-    "title": "Large Language Models for Software Engineering: Survey and Open Problems",
-    "abstract": "This paper provides a survey of the emerging area of Large Language Models (LLMs) for Software Engineering (SE). It also sets out open research challenges for the application of LLMs to technical problems faced by software engineers. LLMs' emergent properties bring novelty and creativity with applications right across the spectrum of Software Engineering activities including coding, design, requirements, repair, refactoring, performance improvement, documentation and analytics. However, these very same emergent properties also pose significant technical challenges; we need techniques that can reliably weed out incorrect solutions, such as hallucinations. Our survey reveals the pivotal role that hybrid techniques (traditional SE plus LLMs) have to play in the development and deployment of reliable, efficient and effective LLM-based SE.",
+    "title": "AgenticSCR: An Autonomous Agentic Secure Code Review for Immature Vulnerabilities Detection",
+    "abstract": "Secure code review is critical at the pre-commit stage, where vulnerabilities must be caught early under tight latency and limited-context constraints. Existing SAST-based checks are noisy and often miss immature, context-dependent vulnerabilities, while standalone Large Language Models (LLMs) are constrained by context windows and lack explicit tool use. Agentic AI, which combine LLMs with autonomous decision-making, tool invocation, and code navigation, offer a promising alternative, but their effectiveness for pre-commit secure code review is not yet well understood. In this work, we introduce AgenticSCR, an agentic AI for secure code review for detecting immature vulnerabilities during the pre-commit stage, augmented by security-focused semantic memories. Using our own curated benchmark of immature vulnerabilities, tailored to the pre-commit secure code review, we empirically evaluate how accurate is our AgenticSCR for localizing, detecting, and explaining immature vulnerabilities. Our results show that AgenticSCR achieves at least 153% relatively higher percentage of correct code review comments than the static LLM-based baseline, and also substantially surpasses SAST tools. Moreover, AgenticSCR generates more correct comments in four out of five vulnerability types, consistently and significantly outperforming all other baselines. These findings highlight the importance of Agentic Secure Code Review, paving the way towards an emerging research area of immature vulnerability detection.",
     "authors": [
-      "Angela Fan",
-      "Beliz Gokkaya",
-      "Mark Harman",
-      "Mitya Lyubarskiy",
-      "Shubho Sengupta",
-      "Shin Yoo",
-      "Jie M. Zhang"
+      "Wachiraphan Charoenwet",
+      "Kla Tantithamthavorn",
+      "Patanamon Thongtanunam",
+      "Hong Yi Lin",
+      "Minwoo Jeong",
+      "Ming Wu"
     ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/4fbd174e80502f8f3c4b9f48054872b028e2445a",
-    "year": "2023",
-    "categories": []
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2601.19138v1",
+    "year": "2026",
+    "categories": [
+      "cs.CR",
+      "cs.AI",
+      "cs.LG",
+      "cs.SE"
+    ]
   },
   {
-    "title": "Managing the development of large software systems: concepts and techniques",
-    "abstract": "INTRODUCTION l am going to describe my pe,-.~onal views about managing large software developments. I have had various assignments during the past nit,.: years, mostly concerned with the development of software packages for spacecraft mission planning, commanding and post-flight analysis. In these assignments I have experienced different degrees of successwith respect to arriving at an operational state, on-time, and wi th in costs. I have become prejudiced by my experiences and I am going to relate some of these prejudices in this presentation.",
+    "title": "Does AI Code Review Lead to Code Changes? A Case Study of GitHub Actions",
+    "abstract": "AI-based code review tools automatically review and comment on pull requests to improve code quality. Despite their growing presence, little is known about their actual impact. We present a large-scale empirical study of 16 popular AI-based code review actions for GitHub workflows, analyzing more than 22,000 review comments in 178 repositories. We investigate (1) how these tools are adopted and configured, (2) whether their comments lead to code changes, and (3) which factors influence their effectiveness. We develop a two-stage LLM-assisted framework to determine whether review comments are addressed, and use interpretable machine learning to identify influencing factors. Our findings show that, while adoption is growing, effectiveness varies widely. Comments that are concise, contain code snippets, and are manually triggered, particularly those from hunk-level review tools, are more likely to result in code changes. These results highlight the importance of careful tool design and suggest directions for improving AI-based code review systems.",
     "authors": [
-      "W. Royce"
+      "Kexin Sun",
+      "Hongyu Kuang",
+      "Sebastian Baltes",
+      "Xin Zhou",
+      "He Zhang",
+      "Xiaoxing Ma",
+      "Guoping Rong",
+      "Dong Shao",
+      "Christoph Treude"
     ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/e0983a9d430ba4775ec1b9ee8c460a5a5994f9b8",
-    "year": "2021",
-    "categories": []
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2508.18771v2",
+    "year": "2025",
+    "categories": [
+      "cs.SE"
+    ]
   },
   {
-    "title": "Generative AI for Software Practitioners",
-    "abstract": "Generative artificial intelligence (AI) tools, such as Bard, ChatGPT, and CoPilot, have rapidly gained widespread usage. They also have the potential to boost software engineering productivity. In this article, we elaborate technologies and usage of generative AI in the software industry. We address questions, such as: How does generative AI improve software productivity? How to connect generative AI to software development, and what are the risks? Which technologies have what sorts of benefits? Practitioner guidance and case studies are shared from our industry context. I look forward to hearing from you about this column and the technologies that matter most for your work.—Christof Ebert",
+    "title": "AI-Assisted Fixes to Code Review Comments at Scale",
+    "abstract": "Aim. There are 10s of thousands of code review comments each week at Meta. We developed Metamate for Code Review (MetaMateCR) that provides AI-assisted fixes for reviewer comments in production at scale.\n  Method. We developed an internal benchmark of 64k <review comment, patch> data points to fine-tune Llama models. Once our models achieve reasonable offline results, we roll them into production. To ensure that our AI-assisted fixes do not negatively impact the time it takes to do code reviews, we conduct randomized controlled safety trials as well as full production experiments.\n  Offline Results. As a baseline, we compare GPT-4o to our small and large Llama models. In offline results, our LargeLSFT model creates an exact match patch 68% of the time outperforming GPT-4o by 9 percentage points (pp). The internal models also use more modern Hack functions when compared to the PHP functions suggested by GPT-4o.\n  Safety Trial. When we roll MetaMateCR into production in a safety trial that compares no AI patches with AI patch suggestions, we see a large regression with reviewers taking over 5% longer to conduct reviews. After investigation, we modify the UX to only show authors the AI patches, and see no regressions in the time for reviews.\n  Production. When we roll LargeLSFT into production, we see an ActionableToApplied rate of 19.7%, which is a 9.2pp improvement over GPT-4o. Our results illustrate the importance of safety trials in ensuring that AI does not inadvertently slow down engineers, and a successful review comment to AI patch product running at scale.",
     "authors": [
-      "C. Ebert",
-      "Panos Louridas",
-      "C. Ebert"
+      "Chandra Maddila",
+      "Negar Ghorbani",
+      "James Saindon",
+      "Parth Thakkar",
+      "Vijayaraghavan Murali",
+      "Rui Abreu",
+      "Jingyue Shen",
+      "Brian Zhou",
+      "Nachiappan Nagappan",
+      "Peter C. Rigby"
     ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/eb22629ba7dd88761c39173f8abc69b589acc5cd",
-    "year": "2023",
-    "categories": []
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2507.13499v1",
+    "year": "2025",
+    "categories": [
+      "cs.SE",
+      "cs.AI",
+      "cs.PL"
+    ]
   },
   {
-    "title": "Towards an understanding of large language models in software engineering tasks",
-    "abstract": "Large Language Models (LLMs) have drawn widespread attention and research due to their astounding performance in text generation and reasoning tasks. Derivative products, like ChatGPT, have been extensively deployed and highly sought after. Meanwhile, the evaluation and optimization of LLMs in software engineering tasks, such as code generation, have become a research focus. However, there is still a lack of systematic research on applying and evaluating LLMs in software engineering. Therefore, this paper comprehensively investigate and collate the research and products combining LLMs with software engineering, aiming to answer two questions: (1) What are the current integrations of LLMs with software engineering? (2) Can LLMs effectively handle software engineering tasks? To find the answers, we have collected related literature as extensively as possible from seven mainstream databases and selected 123 timely papers published starting from 2022 for analysis. We have categorized these papers in detail and reviewed the current research status of LLMs from the perspective of seven major software engineering tasks, hoping this will help researchers better grasp the research trends and address the issues when applying LLMs. Meanwhile, we have also organized and presented papers with evaluation content to reveal the performance and effectiveness of LLMs in various software engineering tasks, guiding researchers and developers to optimize.",
+    "title": "Mapping Industry Practices to the EU AI Act's GPAI Code of Practice Safety and Security Measures",
+    "abstract": "This report provides a detailed comparison between the Safety and Security measures proposed in the EU AI Act's General-Purpose AI (GPAI) Code of Practice (Third Draft) and the current commitments and practices voluntarily adopted by leading AI companies. As the EU moves toward enforcing binding obligations for GPAI model providers, the Code of Practice will be key for bridging legal requirements with concrete technical commitments. Our analysis focuses on the draft's Safety and Security section (Commitments II.1-II.16), documenting excerpts from current public-facing documents that are relevant to each individual measure.\n  We systematically reviewed different document types, such as companies' frontier safety frameworks and model cards, from over a dozen companies, including OpenAI, Anthropic, Google DeepMind, Microsoft, Meta, Amazon, and others. This report is not meant to be an indication of legal compliance, nor does it take any prescriptive viewpoint about the Code of Practice or companies' policies. Instead, it aims to inform the ongoing dialogue between regulators and General-Purpose AI model providers by surfacing evidence of industry precedent for various measures. Nonetheless, we were able to find relevant quotes from at least 5 companies' documents for the majority of the measures in Commitments II.1-II.16.",
     "authors": [
-      "Zibin Zheng",
-      "Kaiwen Ning",
-      "Jiachi Chen",
-      "Yanlin Wang",
-      "Wenqing Chen",
-      "Lianghong Guo",
-      "Weicheng Wang"
+      "Lily Stelling",
+      "Mick Yang",
+      "Rokas Gipiškis",
+      "Leon Staufer",
+      "Ze Shen Chin",
+      "Siméon Campos",
+      "Ariel Gil",
+      "Michael Chen"
     ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/681f9009e22c947007b53455e9f8f22e29209010",
-    "year": "2023",
-    "categories": []
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2504.15181v2",
+    "year": "2025",
+    "categories": [
+      "cs.CY",
+      "cs.AI"
+    ]
   },
   {
-    "title": "Software Engineering for Machine Learning: A Case Study",
-    "abstract": "Recent advances in machine learning have stimulated widespread interest within the Information Technology sector on integrating AI capabilities into software and services. This goal has forced organizations to evolve their development processes. We report on a study that we conducted on observing software teams at Microsoft as they develop AI-based applications. We consider a nine-stage workflow process informed by prior experiences developing AI applications (e.g., search and NLP) and data science tools (e.g. application diagnostics and bug reporting). We found that various Microsoft teams have united this workflow into preexisting, well-evolved, Agile-like software engineering processes, providing insights about several essential engineering challenges that organizations may face in creating large-scale AI solutions for the marketplace. We collected some best practices from Microsoft teams to address these challenges. In addition, we have identified three aspects of the AI domain that make it fundamentally different from prior software application domains: 1) discovering, managing, and versioning the data needed for machine learning applications is much more complex and difficult than other types of software engineering, 2) model customization and model reuse require very different skills than are typically found in software teams, and 3) AI components are more difficult to handle as distinct modules than traditional software components - models may be \"entangled\" in complex ways and experience non-monotonic error behavior. We believe that the lessons learned by Microsoft teams will be valuable to other organizations.",
+    "title": "AI-Researcher: Autonomous Scientific Innovation",
+    "abstract": "The powerful reasoning capabilities of Large Language Models (LLMs) in mathematics and coding, combined with their ability to automate complex tasks through agentic frameworks, present unprecedented opportunities for accelerating scientific innovation. In this paper, we introduce AI-Researcher, a fully autonomous research system that transforms how AI-driven scientific discovery is conducted and evaluated. Our framework seamlessly orchestrates the complete research pipeline--from literature review and hypothesis generation to algorithm implementation and publication-ready manuscript preparation--with minimal human intervention. To rigorously assess autonomous research capabilities, we develop Scientist-Bench, a comprehensive benchmark comprising state-of-the-art papers across diverse AI research domains, featuring both guided innovation and open-ended exploration tasks. Through extensive experiments, we demonstrate that AI-Researcher achieves remarkable implementation success rates and produces research papers that approach human-level quality. This work establishes new foundations for autonomous scientific innovation that can complement human researchers by systematically exploring solution spaces beyond cognitive limitations.",
     "authors": [
-      "Saleema Amershi",
-      "Andrew Begel",
-      "C. Bird",
-      "R. Deline",
-      "H. Gall",
-      "Ece Kamar",
-      "N. Nagappan",
-      "Besmira Nushi",
+      "Jiabin Tang",
+      "Lianghao Xia",
+      "Zhonghang Li",
+      "Chao Huang"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2505.18705v1",
+    "year": "2025",
+    "categories": [
+      "cs.AI"
+    ]
+  },
+  {
+    "title": "AI-powered Code Review with LLMs: Early Results",
+    "abstract": "In this paper, we present a novel approach to improving software quality and efficiency through a Large Language Model (LLM)-based model designed to review code and identify potential issues. Our proposed LLM-based AI agent model is trained on large code repositories. This training includes code reviews, bug reports, and documentation of best practices. It aims to detect code smells, identify potential bugs, provide suggestions for improvement, and optimize the code. Unlike traditional static code analysis tools, our LLM-based AI agent has the ability to predict future potential risks in the code. This supports a dual goal of improving code quality and enhancing developer education by encouraging a deeper understanding of best practices and efficient coding techniques. Furthermore, we explore the model's effectiveness in suggesting improvements that significantly reduce post-release bugs and enhance code review processes, as evidenced by an analysis of developer sentiment toward LLM feedback. For future work, we aim to assess the accuracy and efficiency of LLM-generated documentation updates in comparison to manual methods. This will involve an empirical study focusing on manually conducted code reviews to identify code smells and bugs, alongside an evaluation of best practice documentation, augmented by insights from developer discussions and code reviews. Our goal is to not only refine the accuracy of our LLM-based tool but also to underscore its potential in streamlining the software development lifecycle through proactive code improvement and education.",
+    "authors": [
+      "Zeeshan Rasheed",
+      "Malik Abdul Sami",
+      "Muhammad Waseem",
+      "Kai-Kristian Kemell",
+      "Xiaofeng Wang",
+      "Anh Nguyen",
+      "Kari Systä",
+      "Pekka Abrahamsson"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2404.18496v2",
+    "year": "2024",
+    "categories": [
+      "cs.SE"
+    ]
+  },
+  {
+    "title": "On Assessing the Relevance of Code Reviews Authored by Generative Models",
+    "abstract": "The use of large language models like ChatGPT in code review offers promising efficiency gains but also raises concerns about correctness and safety. Existing evaluation methods for code review generation either rely on automatic comparisons to a single ground truth, which fails to capture the variability of human perspectives, or on subjective assessments of \"usefulness\", a highly ambiguous concept. We propose a novel evaluation approach based on what we call multi-subjective ranking. Using a dataset of 280 self-contained code review requests and corresponding comments from CodeReview StackExchange, multiple human judges ranked the quality of ChatGPT-generated comments alongside the top human responses from the platform. Results show that ChatGPT's comments were ranked significantly better than human ones, even surpassing StackExchange's accepted answers. Going further, our proposed method motivates and enables more meaningful assessments of generative AI's performance in code review, while also raising awareness of potential risks of unchecked integration into review processes.",
+    "authors": [
+      "Robert Heumüller",
+      "Frank Ortmeier"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2512.15466v1",
+    "year": "2025",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ]
+  },
+  {
+    "title": "Understanding Dominant Themes in Reviewing Agentic AI-authored Code",
+    "abstract": "While prior work has examined the generation capabilities of Agentic AI systems, little is known about how reviewers respond to AI-authored code in practice. In this paper, we present a large-scale empirical study of code review dynamics in agent-generated PRs. Using a curated subset of the AIDev dataset, we analyze 19,450 inline review comments spanning 3,177 agent-authored PRs from real-world GitHub repositories. We first derive a taxonomy of 12 review comment themes using topic modeling combined with large language model (LLM)-assisted semantic clustering and consolidation. According to this taxonomy, we then investigate whether zero-shot prompts to LLM can reliably annotate review comments. Our evaluation against human annotations shows that open-source LLM achieves reasonably high exact match (78.63%), macro F1 score (0.78), and substantial agreement with human annotators at the review comment level. At the PR level, the LLM also correctly identifies the dominant review theme with 78% Top-1 accuracy and achieves an average Jaccard similarity of 0.76, indicating strong alignment with human judgments. Applying this annotation pipeline at scale, we find that apart from functional correctness and logical changes, reviews of agent-authored PRs predominantly focus on documentation gaps, refactoring needs, styling and formatting issues, with testing and security-related concerns. These findings suggest that while AI agents can accelerate code production, there remain gaps requiring targeted human review oversight.",
+    "authors": [
+      "Md. Asif Haider",
       "Thomas Zimmermann"
     ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2601.19287v1",
+    "year": "2026",
+    "categories": [
+      "cs.SE"
+    ]
+  },
+  {
+    "title": "The Specification as Quality Gate: Three Hypotheses on AI-Assisted Code Review",
+    "abstract": "The dominant industry response to AI-generated code quality problems is to deploy AI reviewers. This paper argues that this response is structurally circular when executable specifications are absent: without an external reference, both the generating agent and the reviewing agent reason from the same artefact, share the same training distribution, and exhibit correlated failures. The review checks code against itself, not against intent.\n  Three hypotheses are developed. First, that correlated errors in homogeneous LLM pipelines echo rather than cancel, a claim supported by convergent empirical evidence from multiple 2025-2026 studies and by three small contrived experiments reported here. The first two experiments are same-family (Claude reviewing Claude-generated code); the third extends to a cross-family panel of four models from three families. All use a planted bug corpus rather than a natural defect sample; they are directional evidence, not a controlled demonstration. Second, that executable specifications perform a domain transition in the Cynefin sense, converting enabling constraints into governing constraints and moving the problem from the complex domain to the complicated domain, a transition that AI makes economically viable at scale. Third, that the defect classes lying outside the reach of executable specifications form a well-defined residual, which is the legitimate and bounded target for AI review.\n  The combined argument implies an architecture: specifications first, deterministic verification pipeline second, AI review only for the structural and architectural residual. This is not a claim that AI review is valueless. It is a claim about what it is actually for, and about what happens when it is deployed without the foundation that makes it non-circular.",
+    "authors": [
+      "Christo Zietsman"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2603.25773v1",
+    "year": "2026",
+    "categories": [
+      "cs.SE"
+    ]
+  },
+  {
+    "title": "Large Language Model for Verilog Code Generation: Literature Review and the Road Ahead",
+    "abstract": "Code generation has emerged as a critical research area at the intersection of Software Engineering (SE) and Artificial Intelligence (AI), attracting significant attention from both academia and industry. Within this broader landscape, Verilog, as a representative hardware description language (HDL), plays a fundamental role in digital circuit design and verification, making its automated generation particularly significant for Electronic Design Automation (EDA). Consequently, recent research has increasingly focused on applying Large Language Models (LLMs) to Verilog code generation, particularly at the Register Transfer Level (RTL), exploring how these AI-driven techniques can be effectively integrated into hardware design workflows. Despite substantial research efforts have explored LLM applications in this domain, a comprehensive survey synthesizing these developments remains absent from the literature. This review fill addresses this gap by providing a systematic literature review of LLM-based methods for Verilog code generation, examining their effectiveness, limitations, and potential for advancing automated hardware design. The review encompasses research work from conferences and journals in the fields of SE, AI, and EDA, encompassing 70 papers published on venues, along with 32 high-quality preprint papers, bringing the total to 102 papers. By answering four key research questions, we aim to (1) identify the LLMs used for Verilog generation, (2) examine the datasets and metrics employed in evaluation, (3) categorize the techniques proposed for Verilog generation, and (4) analyze LLM alignment approaches for Verilog generation. Based on our findings, we have identified a series of limitations of existing studies. Finally, we have outlined a roadmap highlighting potential opportunities for future research endeavors in LLM-assisted hardware design.",
+    "authors": [
+      "Guang Yang",
+      "Wei Zheng",
+      "Xiang Chen",
+      "Dong Liang",
+      "Peng Hu",
+      "Yukui Yang",
+      "Shaohang Peng",
+      "Zhenghan Li",
+      "Jiahui Feng",
+      "Xiao Wei",
+      "Kexin Sun",
+      "Deyuan Ma",
+      "Haotian Cheng",
+      "Yiheng Shen",
+      "Xing Hu",
+      "Terry Yue Zhuo",
+      "David Lo"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2512.00020v2",
+    "year": "2025",
+    "categories": [
+      "cs.AR",
+      "cs.AI"
+    ]
+  },
+  {
+    "title": "GitHub's Copilot Code Review: Can AI Spot Security Flaws Before You Commit?",
+    "abstract": "As software development practices increasingly adopt AI-powered tools, ensuring that such tools can support secure coding has become critical. This study evaluates the effectiveness of GitHub Copilot's recently introduced code review feature in detecting security vulnerabilities. Using a curated set of labeled vulnerable code samples drawn from diverse open-source projects spanning multiple programming languages and application domains, we systematically assessed Copilot's ability to identify and provide feedback on common security flaws. Contrary to expectations, our results reveal that Copilot's code review frequently fails to detect critical vulnerabilities such as SQL injection, cross-site scripting (XSS), and insecure deserialization. Instead, its feedback primarily addresses low-severity issues, such as coding style and typographical errors. These findings expose a significant gap between the perceived capabilities of AI-assisted code review and its actual effectiveness in supporting secure development practices. Our results highlight the continued necessity of dedicated security tools and manual code audits to ensure robust software security.",
+    "authors": [
+      "Amena Amro",
+      "Manar H. Alalfi"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2509.13650v1",
+    "year": "2025",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ]
+  },
+  {
+    "title": "DeputyDev -- AI Powered Developer Assistant: Breaking the Code Review Logjam through Contextual AI to Boost Developer Productivity",
+    "abstract": "This study investigates the implementation and efficacy of DeputyDev, an AI-powered code review assistant developed to address inefficiencies in the software development process. The process of code review is highly inefficient for several reasons, such as it being a time-consuming process, inconsistent feedback, and review quality not being at par most of the time. Using our telemetry data, we observed that at TATA 1mg, pull request (PR) processing exhibits significant inefficiencies, with average pick-up and review times of 73 and 82 hours, respectively, resulting in a 6.2 day closure cycle. The review cycle was marked by prolonged iterative communication between the reviewing and submitting parties. Research from the University of California, Irvine indicates that interruptions can lead to an average of 23 minutes of lost focus, critically affecting code quality and timely delivery. To address these challenges, we developed DeputyDev's PR review capabilities by providing automated, contextual code reviews. We conducted a rigorous double-controlled A/B experiment involving over 200 engineers to evaluate DeputyDev's impact on review times. The results demonstrated a statistically significant reduction in both average per PR (23.09%) and average per-line-of-code (40.13%) review durations. After implementing safeguards to exclude outliers, DeputyDev has been effectively rolled out across the entire organisation. Additionally, it has been made available to external companies as a Software-as-a-Service (SaaS) solution, currently supporting the daily work of numerous engineering professionals. This study explores the implementation and effectiveness of AI-assisted code reviews in improving development workflow timelines and code.",
+    "authors": [
+      "Vishal Khare",
+      "Vijay Saini",
+      "Deepak Sharma",
+      "Anand Kumar",
+      "Ankit Rana",
+      "Anshul Yadav"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2508.09676v1",
+    "year": "2025",
+    "categories": [
+      "cs.SE",
+      "cs.LG"
+    ]
+  },
+  {
+    "title": "Human-AI Experience in Integrated Development Environments: A Systematic Literature Review",
+    "abstract": "The integration of Artificial Intelligence (AI) into Integrated Development Environments (IDEs) is reshaping software development, fundamentally altering how developers interact with their tools. This shift marks the emergence of Human-AI Experience in Integrated Development Environment (in-IDE HAX), a field that explores the evolving dynamics of Human-Computer Interaction in AI-assisted coding environments. Despite rapid adoption, research on in-IDE HAX remains fragmented, which highlights the need for a unified overview of current practices, challenges, and opportunities. To provide a structured overview of existing research, we conduct a systematic literature review of 90 studies, summarizing current findings and outlining areas for further investigation.\n  We organize key insights from reviewed studies into three aspects: Impact, Design, and Quality of AI-based systems inside IDEs. Impact findings show that AI-assisted coding enhances developer productivity but also introduces challenges, such as verification overhead and over-reliance. Design studies show that effective interfaces surface context, provide explanations and transparency of suggestion, and support user control. Quality studies document risks in correctness, maintainability, and security. For future research, priorities include productivity studies, design of assistance, and audit of AI-generated code. The agenda calls for larger and longer evaluations, stronger audit and verification assets, broader coverage across the software life cycle, and adaptive assistance under user control.",
+    "authors": [
+      "Agnia Sergeyuk",
+      "Ilya Zakharov",
+      "Ekaterina Koshchenko",
+      "Maliheh Izadi"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2503.06195v3",
+    "year": "2025",
+    "categories": [
+      "cs.SE",
+      "cs.AI",
+      "cs.HC"
+    ]
+  },
+  {
+    "title": "SWE-PRBench: Benchmarking AI Code Review Quality Against Pull Request Feedback",
+    "abstract": "We introduce SWE-PRBench, a benchmark of 350 pull requests with human-annotated ground truth for evaluating AI code review quality. Evaluated against an LLM-as-judge framework validated at kappa=0.75, 8 frontier models detect only 15-31% of human-flagged issues on the diff-only configuration, demonstrating that AI code review remains far below human expert performance despite strong results on code generation benchmarks. Pull requests are drawn from active open-source repositories, filtered from 700 candidates using a Repository Quality Score, and evaluated under three frozen context configurations: diff only (config_A), diff with file content (config_B), and full context (config_C), enabling systematic ablation of context provision strategies. All 8 models degrade monotonically from config_A to config_C, even when context is provided via structured semantic layers including AST-extracted function context and import graph resolution. The dominant mechanism is a collapse of Type2_Contextual issue detection at config_B, consistent with attention dilution in long contexts: a structured 2,000-token diff-with-summary prompt outperforms a 2,500-token full-context prompt enriched with execution context, behaviour mapping, and test signatures across all 8 models. The top four models are statistically indistinguishable (mean score 0.147-0.153) while a clear tier gap separates them from the remaining four (mean score <= 0.113). Dataset, contexts, annotations, and evaluation harness are released publicly.",
+    "authors": [
+      "Deepak Kumar"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2603.26130v1",
+    "year": "2026",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ]
+  },
+  {
+    "title": "CRScore++: Reinforcement Learning with Verifiable Tool and AI Feedback for Code Review",
+    "abstract": "Reinforcement learning (RL) to improve code review comment generation requires handling unstructured outputs, making reinforcement learning (RL) feedback challenging. The two main RL approaches, namely RL with Verifiable Feedback (RLVR) and RL with AI Feedback (RLAIF), offer trade-offs: RLVR provides reliable feedback for structured tasks like code generation, while RLAIF works for unstructured outputs but is subjective. We bridge this gap with CRScore++, an RL framework that leverages both LLM-based subjective feedback and verifiable signals for training. Extending CRScore, a code review evaluation metric integrating LLMs with verifiers like linters and code smell detectors, CRScore++ transforms these signals into training rewards. We show that CRScore++ improves a weaker student model through a combination of supervised fine-tuning and RL critique from a stronger teacher model, thus enabling generalization to novel programming languages.",
+    "authors": [
+      "Manav Nitin Kapadnis",
+      "Atharva Naik",
+      "Carolyn Rose"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2506.00296v1",
+    "year": "2025",
+    "categories": [
+      "cs.SE"
+    ]
+  },
+  {
+    "title": "Unifying the Perspectives of NLP and Software Engineering: A Survey on Language Models for Code",
+    "abstract": "In this work we systematically review the recent advancements in software engineering with language models, covering 70+ models, 40+ evaluation tasks, 180+ datasets, and 900 related works. Unlike previous works, we integrate software engineering (SE) with natural language processing (NLP) by discussing the perspectives of both sides: SE applies language models for development automation, while NLP adopts SE tasks for language model evaluation. We break down code processing models into general language models represented by the GPT family and specialized models that are specifically pretrained on code, often with tailored objectives. We discuss the relations and differences between these models, and highlight the historical transition of code modeling from statistical models and RNNs to pretrained Transformers and LLMs, which is exactly the same course that had been taken by NLP. We also go beyond programming and review LLMs' application in other software engineering activities including requirement engineering, testing, deployment, and operations in an endeavor to provide a global view of NLP in SE, and identify key challenges and potential future directions in this domain. We keep the survey open and updated on GitHub at https://github.com/codefuse-ai/Awesome-Code-LLM.",
+    "authors": [
+      "Ziyin Zhang",
+      "Chaoyu Chen",
+      "Bingchang Liu",
+      "Cong Liao",
+      "Zi Gong",
+      "Hang Yu",
+      "Jianguo Li",
+      "Rui Wang"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2311.07989v7",
+    "year": "2023",
+    "categories": [
+      "cs.CL",
+      "cs.AI",
+      "cs.SE"
+    ]
+  },
+  {
+    "title": "The Denario project: Deep knowledge AI agents for scientific discovery",
+    "abstract": "We present Denario, an AI multi-agent system designed to serve as a scientific research assistant. Denario can perform many different tasks, such as generating ideas, checking the literature, developing research plans, writing and executing code, making plots, and drafting and reviewing a scientific paper. The system has a modular architecture, allowing it to handle specific tasks, such as generating an idea, or carrying out end-to-end scientific analysis using Cmbagent as a deep-research backend. In this work, we describe in detail Denario and its modules, and illustrate its capabilities by presenting multiple AI-generated papers generated by it in many different scientific disciplines such as astrophysics, biology, biophysics, biomedical informatics, chemistry, material science, mathematical physics, medicine, neuroscience and planetary science. Denario also excels at combining ideas from different disciplines, and we illustrate this by showing a paper that applies methods from quantum physics and machine learning to astrophysical data. We report the evaluations performed on these papers by domain experts, who provided both numerical scores and review-like feedback. We then highlight the strengths, weaknesses, and limitations of the current system. Finally, we discuss the ethical implications of AI-driven research and reflect on how such technology relates to the philosophy of science. We publicly release the code at https://github.com/AstroPilot-AI/Denario. A Denario demo can also be run directly on the web at https://huggingface.co/spaces/astropilot-ai/Denario, and the full app will be deployed on the cloud.",
+    "authors": [
+      "Francisco Villaescusa-Navarro",
+      "Boris Bolliet",
+      "Pablo Villanueva-Domingo",
+      "Adrian E. Bayer",
+      "Aidan Acquah",
+      "Chetana Amancharla",
+      "Almog Barzilay-Siegal",
+      "Pablo Bermejo",
+      "Camille Bilodeau",
+      "Pablo Cárdenas Ramírez",
+      "Miles Cranmer",
+      "Urbano L. França",
+      "ChangHoon Hahn",
+      "Yan-Fei Jiang",
+      "Raul Jimenez",
+      "Jun-Young Lee",
+      "Antonio Lerario",
+      "Osman Mamun",
+      "Thomas Meier",
+      "Anupam A. Ojha",
+      "Pavlos Protopapas",
+      "Shimanto Roy",
+      "David N. Spergel",
+      "Pedro Tarancón-Álvarez",
+      "Ujjwal Tiwari",
+      "Matteo Viel",
+      "Digvijay Wadekar",
+      "Chi Wang",
+      "Bonny Y. Wang",
+      "Licong Xu",
+      "Yossi Yovel",
+      "Shuwen Yue",
+      "Wen-Han Zhou",
+      "Qiyao Zhu",
+      "Jiajun Zou",
+      "Íñigo Zubeldia"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2510.26887v1",
+    "year": "2025",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "cs.LG",
+      "cs.MA"
+    ]
+  },
+  {
+    "title": "AI-Assisted Assessment of Coding Practices in Modern Code Review",
+    "abstract": "Modern code review is a process in which an incremental code contribution made by a code author is reviewed by one or more peers before it is committed to the version control system. An important element of modern code review is verifying that code contributions adhere to best practices. While some of these best practices can be automatically verified, verifying others is commonly left to human reviewers. This paper reports on the development, deployment, and evaluation of AutoCommenter, a system backed by a large language model that automatically learns and enforces coding best practices. We implemented AutoCommenter for four programming languages (C++, Java, Python, and Go) and evaluated its performance and adoption in a large industrial setting. Our evaluation shows that an end-to-end system for learning and enforcing coding best practices is feasible and has a positive impact on the developer workflow. Additionally, this paper reports on the challenges associated with deploying such a system to tens of thousands of developers and the corresponding lessons learned.",
+    "authors": [
+      "Manushree Vijayvergiya",
+      "Małgorzata Salawa",
+      "Ivan Budiselić",
+      "Dan Zheng",
+      "Pascal Lamblin",
+      "Marko Ivanković",
+      "Juanjo Carin",
+      "Mateusz Lewko",
+      "Jovan Andonov",
+      "Goran Petrović",
+      "Daniel Tarlow",
+      "Petros Maniatis",
+      "René Just"
+    ],
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2405.13565v1",
+    "year": "2024",
+    "categories": [
+      "cs.SE",
+      "cs.AI"
+    ]
+  },
+  {
+    "title": "AI-Code Wizard an AI Code Review & Generation Assistant",
+    "abstract": ": Designed to simplify and enhance the development of code, AI CodeWizard is a web-based application that employs artificial intelligence and provides dependable online code management for developers. By offering an intuitive interface for developers to write, edit, and manage code with AI assistance in recommending improvements/optimizations or identifying potential bugs. AI CodeWizard is built using React and TypeScript, with a TailwindCSS styled UI, to ensure user responsiveness. Integrated: With integrated user authentication and role- based access control via the Clerk it provides users with a protected workspace where they can log in to. It features a well-organized interface that allows users to navigate between the home page, code editor, and authentication screens. Only authenticated users are permitted to access the editor functionality, which ensures data security and personalized experiences.\n\nKEYWORDS: AI Code Review, Smart Code Editor, AI-Powered IDE, Online Code Editor, AI Code Optimization, Real-Time Bug Detection, Monaco Editor Integration, React TypeScript Project, Secure Code Collaboration, Role-Based Access Control (RBAC), Clerk Authentication, AI Code Suggestion Tool, TailwindCSS              Interface, OpenAI Integration, Developer Productivity Tool, Code Quality Enhancement, ML in Software Development, Cloud-Based IDE, Next-Gen Web Development.",
+    "authors": [
+      "Chandnani Lucky"
+    ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/f70b2f20be241f445a61f33c4b8e76e554760340",
-    "year": "2019",
+    "url": "https://www.semanticscholar.org/paper/0c4221f5fd9cb1f84fb8aa123633dd86b8a34e30",
+    "year": "2025",
     "categories": []
   },
   {
-    "title": "JASP: Graphical Statistical Software for Common Statistical Designs",
-    "abstract": "This paper introduces JASP, a free graphical software package for basic statistical procedures such as t tests, ANOVAs, linear regression models, and analyses of contingency tables. JASP is open-source and differentiates itself from existing open-source solutions in two ways. First, JASP provides several innovations in user interface design; specifically, results are provided immediately as the user makes changes to options, output is attractive, minimalist, and designed around the principle of progressive disclosure, and analyses can be peer reviewed without requiring a \"syntax\". Second, JASP provides some of the recent developments in Bayesian hypothesis testing and Bayesian parameter estimation. The ease with which these relatively complex Bayesian techniques are available in JASP encourages their broader adoption and furthers a more inclusive statistical reporting practice. The JASP analyses are implemented in R and a series of R packages.",
+    "title": "AI Code Review Assistant: A Modern Web Based Solution for Automated Code Analysis and Developer Productivity Enhancement",
+    "abstract": "This paper presents the development and implementation of an AI Code Review Assistant, a comprehensive web-based\napplication designed to enhance developer productivity through automated code analysis and intelligent feedback. Built using\nNext.js framework with Firebase integration and Groq AI API, the system provides real-time code review capabilities, interactive\nchat functionality, and comprehensive progress tracking. The application incorporates modern web technologies including\nReact.js, Tailwind CSS, and Firebase Firestore for scalable data management. Key features include multi-language code\nanalysis, AI-powered suggestions, user authentication, thread-based conversation management, and responsive design for crossplatform compatibility. Performance evaluation demonstrates 92% accuracy in code issue detection and 85% user satisfaction in\nautomated feedback quality. The system successfully addresses the growing need for efficient code review processes in modern\nsoftware development environments, providing developers with instant, intelligent feedback to improve code quality and\naccelerate development cycles.",
     "authors": [
-      "Jonathon Love",
-      "Ravi Selker",
-      "M. Marsman",
-      "Tahira Jamil",
-      "Damian Dropmann",
-      "J. Verhagen",
-      "A. Ly",
-      "Q. Gronau",
-      "Martin Šmı́ra",
-      "S. Epskamp",
-      "D. Matzke",
-      "A. Wild",
-      "Patrick A. Knight",
-      "Jeffrey N. Rouder",
-      "R. Morey",
-      "E. Wagenmakers"
+      "Mohanakshi K M"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/69ba44956f8a605907e7b99bba7f197cd426dbb1",
-    "year": "2019",
+    "url": "https://www.semanticscholar.org/paper/44db013478c14060d9af290bc97e8069bab04773",
+    "year": "2025",
     "categories": []
   },
   {
-    "title": "Sampling in software engineering research: a critical review and guidelines",
-    "abstract": "Representative sampling appears rare in empirical software engineering research. Not all studies need representative samples, but a general lack of representative sampling undermines a scientific field. This article therefore reports a critical review of the state of sampling in recent, high-quality software engineering research. The key findings are: (1) random sampling is rare; (2) sophisticated sampling strategies are very rare; (3) sampling, representativeness and randomness often appear misunderstood. These findings suggest that software engineering research has a generalizability crisis. To address these problems, this paper synthesizes existing knowledge of sampling into a succinct primer and proposes extensive guidelines for improving the conduct, presentation and evaluation of sampling in software engineering research. It is further recommended that while researchers should strive for more representative samples, disparaging non-probability sampling is generally capricious and particularly misguided for predominately qualitative research.",
+    "title": "CR-Bench: Evaluating the Real-World Utility of AI Code Review Agents",
+    "abstract": "Recent advances in frontier large language models have enabled code review agents that operate in open-ended, reasoning-intensive settings. However, the lack of standardized benchmarks and granular evaluation protocols makes it difficult to assess behavior of code review agents beyond coarse success metrics, particularly for tasks where false positives are costly. To address this gap, we introduce CR-Bench, a benchmarking dataset, and CR-Evaluator, a fine-grained evaluation pipeline for code review agents. Using these tools, we conduct a preliminary study evaluating both a single-shot agent and a Reflexion-based agent across two frontier models. We find that code review agents can exhibit a low signal-to-noise ratio when designed to identify all hidden issues, obscuring true progress and developer productivity when measured solely by resolution rates. Our analysis identifies the hidden trade-off between issue resolution and spurious findings, revealing a frontier that constrains effective agent design. Together, CR-Bench and CR-Evaluator provide a timely foundation for studying and developing code review agents as LLM-based systems transition from controlled benchmarks to real-world software engineering workflows.",
     "authors": [
-      "Sebastian Baltes",
-      "P. Ralph"
+      "K. Pereira",
+      "Neelabh Sinha",
+      "Rajat Ghosh",
+      "Debojyoti Dutta"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/849a6be5adf1b9a2b6e59ba0290bca06692c0efd",
-    "year": "2020",
+    "url": "https://www.semanticscholar.org/paper/4a605befd58e4301117bb21dd99a4b1da1cbe827",
+    "year": "2026",
     "categories": []
   },
   {
-    "title": "Software Engineering for AI-Based Systems: A Survey",
-    "abstract": "AI-based systems are software systems with functionalities enabled by at least one AI component (e.g., for image-, speech-recognition, and autonomous driving). AI-based systems are becoming pervasive in society due to advances in AI. However, there is limited synthesized knowledge on Software Engineering (SE) approaches for building, operating, and maintaining AI-based systems. To collect and analyze state-of-the-art knowledge about SE for AI-based systems, we conducted a systematic mapping study. We considered 248 studies published between January 2010 and March 2020. SE for AI-based systems is an emerging research area, where more than 2/3 of the studies have been published since 2018. The most studied properties of AI-based systems are dependability and safety. We identified multiple SE approaches for AI-based systems, which we classified according to the SWEBOK areas. Studies related to software testing and software quality are very prevalent, while areas like software maintenance seem neglected. Data-related issues are the most recurrent challenges. Our results are valuable for: researchers, to quickly understand the state-of-the-art and learn which topics need more research; practitioners, to learn about the approaches and challenges that SE entails for AI-based systems; and, educators, to bridge the gap among SE and AI in their curricula.",
+    "title": "AI Code Review System",
+    "abstract": "Abstract:\n\nThe world of software development moves fast, and keeping code clean and reliable is more important than ever. Manual code reviews help, but they're slow, often inconsistent, and depend too much on the reviewer’s experience. That’s where our AI Code Review System (ACRS) comes in. It uses advanced AI and machine learning to automatically analyze code, using large language models trained on massive datasets. These models don’t just spot simple errors—they actually understand how code is written, how it’s structured, and how it should work.\n\n\nSo what does this system actually do for developers? It scans through code and gives instant feedback: points out mistakes, suggests ways to make things run smoother, and explains its reasoning. This makes the code easier to read, maintain, and upgrade. On top of that, it generates an overall “code quality score” based on how correct, efficient, and clean the code is.\n\n\nThe best part is, the interface is designed to be simple and helpful. Developers don’t have to rely on lengthy manual reviews, which means projects move faster.\n\n\nThe research also digs into how AI code reviews stack up against classic static analysis tools. Basically, AI systems have an edge when it comes to understanding context and offering smarter recommendations. The ACRS isn’t just for veteran coders, either—it’s a teaching tool for students and beginners, too. All in all, this system is a big leap forward for automated, intelligent, and scalable code reviews in today’s fast-paced software industry.\n\n\nKeywords: Artificial Intelligence, Code Review, Machine Learning, Code Quality, Bug Detection, Automated Feedback, Programming, Software Development",
     "authors": [
-      "Silverio Martínez-Fernández",
-      "J. Bogner",
-      "Xavier Franch",
-      "Marc Oriol",
-      "Julien Siebert",
-      "Adam Trendowicz",
-      "Anna Maria Vollmer",
-      "S. Wagner"
+      "Shakila Siddavatam",
+      "Adil Abid , Jamadar"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/1a6fc05a37ae1b2fc7c6193cb6dc8282767c2cb6",
-    "year": "2021",
+    "url": "https://www.semanticscholar.org/paper/465bf2a67221415b63bcbeacc1bffe28cc07eeda",
+    "year": "2026",
     "categories": []
   },
   {
-    "title": "A Survey on Software Fault Localization",
-    "abstract": "Software fault localization, the act of identifying the locations of faults in a program, is widely recognized to be one of the most tedious, time consuming, and expensive - yet equally critical - activities in program debugging. Due to the increasing scale and complexity of software today, manually locating faults when failures occur is rapidly becoming infeasible, and consequently, there is a strong demand for techniques that can guide software developers to the locations of faults in a program with minimal human intervention. This demand in turn has fueled the proposal and development of a broad spectrum of fault localization techniques, each of which aims to streamline the fault localization process and make it more effective by attacking the problem in a unique way. In this article, we catalog and provide a comprehensive overview of such techniques and discuss key issues and concerns that are pertinent to software fault localization as a whole.",
+    "title": "Bugdar: AI-Augmented Secure Code Review for GitHub Pull Requests",
+    "abstract": "As software systems grow increasingly complex, ensuring security during development poses significant challenges. Traditional manual code audits are often expensive, time-intensive, and ill-suited for fast-paced workflows, while automated tools frequently suffer from high false-positive rates, limiting their reliability. To address these issues, we introduce Bugdar, an AI-augmented code review system that integrates seamlessly into GitHub pull requests, providing near real-time, context-aware vulnerability analysis. Bugdar leverages fine-tunable Large Language Models (LLMs) and Retrieval Augmented Generation (RAGs) to deliver project-specific, actionable feedback that aligns with each codebase's unique requirements and developer practices. Supporting multiple programming languages, including Solidity, Move, Rust, and Python, Bugdar demonstrates exceptional efficiency, processing an average of 56.4 seconds per pull request or 30 lines of code per second. This is significantly faster than manual reviews, which could take hours per pull request. By facilitating a proactive approach to secure coding, Bugdar reduces the reliance on manual reviews, accelerates development cycles, and enhances the security posture of software systems without compromising productivity.",
     "authors": [
-      "W. E. Wong",
-      "Ruizhi Gao",
-      "Yihao Li",
-      "Rui Abreu",
-      "F. Wotawa"
+      "John Naulty",
+      "Eason Chen",
+      "Joy Wang",
+      "George Digkas",
+      "K. Chalkias"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/be0ed514aa9afa080e2fbc51a88d21543580179d",
-    "year": "2016",
+    "url": "https://www.semanticscholar.org/paper/2cba2788548c4dfa37b7974babbe93c929b89c45",
+    "year": "2025",
     "categories": []
   },
   {
-    "title": "tidyLPA: An R Package to Easily Carry Out Latent Profile Analysis (LPA) Using Open-Source or Commercial Software",
-    "abstract": "Researchers are often interested in identifying homogeneous subgroups within heterogeneous samples on the basis of a set of measures, such as profiles of individuals’ motivation (i.e., their values, competence beliefs, and achievement goals). Latent Profile Analysis (LPA) is a statistical method for identifying such groups, or latent profiles, and is a special case of the general mixture model where all measured variables are continuous (Harring & Hodis, 2016; Pastor, Barron, Miller, & Davis, 2007). The tidyLPA package allows users to specify different models that determine whether and how different parameters (i.e., means, variances, and covariances) are estimated, and to specify and compare different solutions based on the number of profiles extracted.",
+    "title": "Integrating AI-Driven Automated Code Review in Agile Development: Benefits, Challenges, and Best Practices",
+    "abstract": "The integration of AI-powered automated code review tools has significantly transformed Agile software development by improving efficiency, maintaining coding standards, and enhancing developer productivity. These tools streamline repetitive tasks, identify potential issues early, and enforce consistency in code quality. However, their adoption comes with challenges such as accuracy constraints, difficulties in integrating with legacy systems, and hesitation among developers. This research employs a mixed-methods approach, combining qualitative and quantitative techniques to examine the benefits, challenges, and best practices associated with AI-driven code reviews. To gather insights, surveys and interviews were conducted with software engineers, DevOps professionals, and Agile practitioners. Additionally, real-world case studies analyzed how organizations have implemented AI-based code reviews, while an experimental study measured performance indicators such as error detection rates, review efficiency, and developer workflow improvements. The findings suggest that AI tools significantly reduce code review time, enhance consistency, and allow developers to concentrate on complex problem-solving rather than manual review processes. However, AI's inability to fully grasp context-sensitive issues, challenges in analyzing complex code logic, and resistance from developers remain notable barriers. Concerns about job security and loss of control over decision-making further contribute to adoption challenges. To overcome these issues, this study emphasizes the importance of a balanced approach where AI tools assist rather than replace human reviewers. Regular training and updates are crucial to improving AI accuracy and keeping pace with evolving coding practices. Gradual integration with existing systems can mitigate compatibility challenges, while transparent communication can help alleviate developer concerns. Additionally, establishing a validation mechanism, where human reviewers verify AI-generated recommendations, can enhance reliability and trust in these tools. In conclusion, while AI-driven automated code reviews offer substantial benefits for Agile teams, their successful implementation depends on strategic deployment, ongoing refinements, and a well-balanced collaboration between AI and human expertise. By following best practices, organizations can optimize AI-assisted code reviews, ultimately improving software quality and streamlining development workflows.",
     "authors": [
-      "J. Rosenberg",
-      "Patrick N. Beymer",
-      "Daniel Anderson",
-      "Jennifer A. Schmidt"
+      "Saad Ahmed"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/51bb782595bfb1829ae2a08b58679db6ed6a6b30",
-    "year": "2018",
+    "url": "https://www.semanticscholar.org/paper/40c194c1e15bbf7103ced189f6a37826d8e706e0",
+    "year": "2025",
     "categories": []
   },
   {
-    "title": "Identifying, categorizing and mitigating threats to validity in software engineering secondary studies",
-    "abstract": "Abstract Context Secondary studies are vulnerable to threats to validity. Although, mitigating these threats is crucial for the credibility of these studies, we currently lack a systematic approach to identify, categorize and mitigate threats to validity for secondary studies. Objective In this paper, we review the corpus of secondary studies, with the aim to identify: (a) the trend of reporting threats to validity, (b) the most common threats to validity and corresponding mitigation actions, and (c) possible categories in which threats to validity can be classified. Method To achieve this goal we employ the tertiary study research method that is used for synthesizing knowledge from existing secondary studies. In particular, we collected data from more than 100 studies, published until December 2016 in top quality software engineering venues (both journals and conference). Results Our results suggest that in recent years, secondary studies are more likely to report their threats to validity. However, the presentation of such threats is rather ad hoc, e.g., the same threat may be presented with a different name, or under a different category. To alleviate this problem, we propose a classification schema for reporting threats to validity and possible mitigation actions. Both the classification of threats and the associated mitigation actions have been validated by an empirical study, i.e., Delphi rounds with experts. Conclusion Based on the proposed schema, we provide a checklist, which authors of secondary studies can use for identifying and categorizing threats to validity and corresponding mitigation actions, while readers of secondary studies can use the checklist for assessing the validity of the reported results.",
+    "title": "Support, Not Automation: Towards AI-supported Code Review For Code Quality and Beyond",
+    "abstract": "Code review is a well-established and valuable software development practice associated with code quality, interpersonal, and team benefits. However, it is also time-consuming, with developers spending 10–20% of their working time doing code reviews. With recent advances in AI capabilities, there are more and more initiatives aimed at fully automating code reviews to save time and streamline software developer workflows. However, while automated tools might succeed in maintaining the code quality, we risk losing interpersonal and team benefits such as knowledge transfer, shared code ownership, and team awareness. Instead of automating code review and losing these important benefits, we envision a code review platform where AI is used to support code review to increase benefits for both code quality and the development team. We propose an AI agent-based architecture that collects and combines information to support the user throughout the code review and adapt the workflow to their needs. We analyze this design in relation to the benefits of code review and outline a research agenda aimed at realizing the proposed design.",
     "authors": [
-      "Apostolos Ampatzoglou",
-      "Stamatia Bibi",
-      "P. Avgeriou",
-      "M. Verbeek",
-      "A. Chatzigeorgiou"
+      "Lo Heander",
+      "Emma Söderberg",
+      "Christofer Rydenfält"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/5c88e6c6bdca6d3d8a35c02384f963dc9961a791",
-    "year": "2019",
+    "url": "https://www.semanticscholar.org/paper/2ca14a84b5eda86bc4327cb0d6d7faf59e78f15c",
+    "year": "2025",
     "categories": []
   },
   {
-    "title": "Reproducible Builds: Increasing the Integrity of Software Supply Chains",
-    "abstract": "Although it is possible to increase confidence in free and open source software by reviewing its source code, trusting code is not the same as trusting its executable counterparts. This article examines reproducible builds, an approach that can determine whether generated binaries correspond to the original source code.",
+    "title": "AI-Driven Continuous Integration: Automating Code Review and Deployment with LLMs",
+    "abstract": "The integration of a Large Language Models (LLMs) into Continuous Integration (CI) pipelines greatly enhances the efficiency of the software development process. AI-based CI improves code quality by decreasing integration failure rates by 30 % and deployment time by 40 %. These models help in identifying bugs, enforcing coding standards, writing unit tests, and optimizing release management. But AIdriven CI comes with risks of security vulnerabilities, model bias and the need for human supervision. This paper uses case studies, surveys, and interviews to explore the effects of AI on CI/CD pipelines and identifies the pros and cons. The results of this search show that the use of AI in CI improves effectiveness, but it needs better oversight to avoid risks and improve model performance.",
     "authors": [
-      "C. Lamb",
-      "Stefano Zacchiroli"
+      "Dina Omar Salem",
+      "Yazan Alahmed",
+      "Ragad Fnich",
+      "Meryem Mazroub",
+      "Mohammad Fnich"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/d33b548ed3849dbf4ab763981f061f44bdea90b4",
-    "year": "2021",
+    "url": "https://www.semanticscholar.org/paper/151cbcb1ad3cc421285322b762eb3cc338b66296",
+    "year": "2025",
     "categories": []
   },
   {
-    "title": "A Comprehensive Investigation of the Role of Imbalanced Learning for Software Defect Prediction",
-    "abstract": "Context: Software defect prediction (SDP) is an important challenge in the field of software engineering, hence much research work has been conducted, most notably through the use of machine learning algorithms. However, class-imbalance typified by few defective components and many non-defective ones is a common occurrence causing difficulties for these methods. Imbalanced learning aims to deal with this problem and has recently been deployed by some researchers, unfortunately with inconsistent results. Objective: We conduct a comprehensive experiment to explore (a) the basic characteristics of this problem; (b) the effect of imbalanced learning and its interactions with (i) data imbalance, (ii) type of classifier, (iii) input metrics and (iv) imbalanced learning method. Method: We systematically evaluate 27 data sets, 7 classifiers, 7 types of input metrics and 17 imbalanced learning methods (including doing nothing) using an experimental design that enables exploration of interactions between these factors and individual imbalanced learning algorithms. This yields 27 × 7 × 7 × 17 = 22491 results. The Matthews correlation coefficient (MCC) is used as an unbiased performance measure (unlike the more widely used F1 and AUC measures). Results: (a) we found a large majority (87 percent) of 106 public domain data sets exhibit moderate or low level of imbalance (imbalance ratio <inline-formula><tex-math notation=\"LaTeX\">$<$</tex-math><alternatives><mml:math><mml:mo><</mml:mo></mml:math><inline-graphic xlink:href=\"guo-ieq1-2836442.gif\"/></alternatives></inline-formula>10; median = 3.94); (b) anything other than low levels of imbalance clearly harm the performance of traditional learning for SDP; (c) imbalanced learning is more effective on the data sets with moderate or higher imbalance, however negative results are always possible; (d) type of classifier has most impact on the improvement in classification performance followed by the imbalanced learning method itself. Type of input metrics is not influential. (e) only <inline-formula><tex-math notation=\"LaTeX\">${\\sim} 52\\%$</tex-math><alternatives><mml:math><mml:mrow><mml:mo>∼</mml:mo><mml:mn>52</mml:mn><mml:mo>%</mml:mo></mml:mrow></mml:math><inline-graphic xlink:href=\"guo-ieq2-2836442.gif\"/></alternatives></inline-formula> of the combinations of Imbalanced Learner and Classifier have a significant positive effect. Conclusion: This paper offers two practical guidelines. First, imbalanced learning should only be considered for moderate or highly imbalanced SDP data sets. Second, the appropriate combination of imbalanced method and classifier needs to be carefully chosen to ameliorate the imbalanced learning problem for SDP. In contrast, the indiscriminate application of imbalanced learning can be harmful.",
+    "title": "AI-Powered Code Review Assistant for Streamlining Pull Request Merging",
+    "abstract": "WatsonX, a comprehensive data and AI platform, adeptly addresses contemporary challenges by meticulously training, validating, tuning, and deploying data to drive impactful business outcomes. The intricate task of timely merging Pull Requests (PRs) poses a significant challenge for software development teams, directly influencing business operations. This paper introduces an innovative solution leveraging AI, particularly harnessing generative AI techniques with the Falcon40-B model through the platform. The AI bot facilitates an initial PR review, offering insightful feedback on code formatting, best practices, and minor issues and streamlines collaboration by automatically assigning and notifying PR reviewers. The overarching goal is the continuous evolution of this AI bot into an intelligent reviewer, capable of assessing code from a functional standpoint. The implementation of this solution holds the promise of significantly enhancing PR management and expediting the entire development workflow.",
     "authors": [
-      "Qinbao Song",
-      "Yuchen Guo",
-      "M. Shepperd"
+      "Chathurya Adapa",
+      "Sai Sindhuri Avulamanda",
+      "A. Anjana",
+      "Ajay Victor"
     ],
     "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/9753d3d5f54f5fccd6a6ef7df58cb5a94918536d",
-    "year": "2019",
-    "categories": []
-  },
-  {
-    "title": "A Survey of App Store Analysis for Software Engineering",
-    "abstract": "App Store Analysis studies information about applications obtained from app stores. App stores provide a wealth of information derived from users that would not exist had the applications been distributed via previous software deployment methods. App Store Analysis combines this non-technical information with technical information to learn trends and behaviours within these forms of software repositories. Findings from App Store Analysis have a direct and actionable impact on the software teams that develop software for app stores, and have led to techniques for requirements engineering, release planning, software design, security and testing. This survey describes and compares the areas of research that have been explored thus far, drawing out common aspects, trends and directions future research should take to address open problems and challenges.",
-    "authors": [
-      "William J. Martin",
-      "Federica Sarro",
-      "Yue Jia",
-      "Yuanyuan Zhang",
-      "M. Harman"
-    ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/a75965753906c24a6a5715a695757a0de8447f26",
-    "year": "2017",
-    "categories": []
-  },
-  {
-    "title": "Guidelines for conducting and reporting case study research in software engineering",
-    "abstract": "Case study is a suitable research methodology for software engineering research since it studies contemporary phenomena in its natural context. However, the understanding of what constitutes a case study varies, and hence the quality of the resulting studies. This paper aims at providing an introduction to case study methodology and guidelines for researchers conducting case studies and readers studying reports of such studies. The content is based on the authors’ own experience from conducting and reading case studies. The terminology and guidelines are compiled from different methodology handbooks in other research domains, in particular social science and information systems, and adapted to the needs in software engineering. We present recommended practices for software engineering case studies as well as empirically derived and evaluated checklists for researchers and readers of case study research.",
-    "authors": [
-      "P. Runeson",
-      "Martin Höst"
-    ],
-    "source": "Semantic Scholar",
-    "url": "https://www.semanticscholar.org/paper/27e57cc2f22c1921d2a1c3954d5062e3fe391553",
-    "year": "2009",
+    "url": "https://www.semanticscholar.org/paper/e69da052cde5461ffd904f89ee1dbe00d460a31c",
+    "year": "2024",
     "categories": []
   }
 ]
