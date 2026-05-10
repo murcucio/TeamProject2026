@@ -20,6 +20,10 @@ ARXIV_API_URL = "https://export.arxiv.org/api/query"
 SEMANTIC_SCHOLAR_API_URL = "https://api.semanticscholar.org/graph/v1/paper/search"
 ARXIV_USER_AGENT = "TeamProject2026/1.0 (educational project)"
 ARXIV_CONTACT_EMAIL = os.getenv("ARXIV_CONTACT_EMAIL", "")
+SEMANTIC_SCHOLAR_API_KEY = (
+    os.getenv("SEMANTIC_SCHOLAR_API_KEY", "")
+    or os.getenv("S2_API_KEY", "")
+)
 DEFAULT_MAX_RESULTS = 20
 
 
@@ -38,6 +42,8 @@ def parse_to_paper_schema(raw: dict, source: str) -> dict:
 
 def is_computer_science_paper(paper: dict) -> bool:
     """Use arXiv categories as the primary computer-science filter."""
+    if paper.get("source") == "Semantic Scholar":
+        return True
     categories = paper.get("categories", [])
     return any(category.startswith("cs.") for category in categories)
 
@@ -169,12 +175,17 @@ def search_semantic_scholar(query: str, limit: int = DEFAULT_MAX_RESULTS) -> lis
         "fields": "title,abstract,authors,year,url,paperId",
     }
     url = f"{SEMANTIC_SCHOLAR_API_URL}?{urlencode(params)}"
+    headers = {
+        "User-Agent": ARXIV_USER_AGENT,
+        "Accept": "application/json",
+    }
+    if SEMANTIC_SCHOLAR_API_KEY:
+        headers["x-api-key"] = SEMANTIC_SCHOLAR_API_KEY
+    else:
+        print("Semantic Scholar API 키가 .env에 없어 공개 요청으로 진행합니다.")
     request = Request(
         url,
-        headers={
-            "User-Agent": ARXIV_USER_AGENT,
-            "Accept": "application/json",
-        },
+        headers=headers,
     )
 
     data: dict = {}
@@ -229,7 +240,11 @@ def display_results(papers: list[dict]) -> None:
         return
 
     print("\n변환된 논문 데이터 전체 출력:")
-    print(json.dumps(papers, ensure_ascii=False, indent=2))
+    output = json.dumps(papers, ensure_ascii=False, indent=2)
+    try:
+        print(output)
+    except UnicodeEncodeError:
+        print(output.encode("cp949", errors="replace").decode("cp949"))
     print(f"\n총 {len(papers)}편이 동일한 구조로 변환되었습니다.")
 
 
@@ -264,7 +279,8 @@ def run_search(topic: str) -> list[dict]:
     # API 키/호출 정책이 정리되면 아래 두 줄을 복구해서 다시 연결하면 된다.
     # print(f"[Semantic Scholar 검색 중...] '{topic}'")
     # semantic_results = search_semantic_scholar(topic)
-    semantic_results: list[dict] = []
+    print(f"[Semantic Scholar 검색 중...] '{topic}'")
+    semantic_results = search_semantic_scholar(topic)
 
     results = deduplicate_papers(arxiv_results + semantic_results)
     results = filter_computer_science_papers(results)
