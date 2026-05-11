@@ -1,4 +1,4 @@
-"""Writer Agent for building a Korean academic-style report draft."""
+"""Writer Agent for generating a Korean paper-style draft."""
 
 from __future__ import annotations
 
@@ -20,27 +20,40 @@ SUMMARY_PATH = Path("data/processed/summary_result.json")
 REPORT_OUTPUT_DIR = Path("outputs/reports")
 
 DEFAULT_WRITER_TOPIC = "AI code review"
-DEFAULT_WRITER_SCORE_THRESHOLD = 30.0
-DEFAULT_WRITER_MAX_TOKENS = 4200
+DEFAULT_WRITER_SCORE_THRESHOLD = 35.0
+SECTION_MAX_TOKENS = 1600
+SECTION_TOKEN_LIMITS = {
+    "제목": 120,
+    "초록": 700,
+    "서론": 1400,
+    "문제 정의 및 연구 목적": 1400,
+    "선행연구 분석": 1800,
+    "연구 방법 및 분석 관점": 1400,
+    "논의": 1800,
+    "결론": 1000,
+    "참고문헌": 800,
+}
 
 REPORT_SECTION_TEMPLATE = [
     "제목",
+    "초록",
     "서론",
-    "관련 연구",
-    "방법 분석",
-    "결과 분석",
-    "한계",
+    "문제 정의 및 연구 목적",
+    "선행연구 분석",
+    "연구 방법 및 분석 관점",
+    "논의",
     "결론",
     "참고문헌",
 ]
 
 REPORT_SECTION_ALIASES = {
-    "제목": ["제목"],
+    "제목": ["제목", "# "],
+    "초록": ["초록"],
     "서론": ["서론"],
-    "관련 연구": ["관련 연구", "관련연구"],
-    "방법 분석": ["방법 분석", "방법분석"],
-    "결과 분석": ["결과 분석", "결과분석"],
-    "한계": ["한계"],
+    "문제 정의 및 연구 목적": ["문제 정의 및 연구 목적", "문제 정의", "연구 목적"],
+    "선행연구 분석": ["선행연구 분석", "선행 연구 분석", "선행연구", "관련 연구"],
+    "연구 방법 및 분석 관점": ["연구 방법 및 분석 관점", "연구 방법", "분석 관점", "방법 분석"],
+    "논의": ["논의", "종합 논의"],
     "결론": ["결론"],
     "참고문헌": ["참고문헌", "참고 문헌"],
 }
@@ -85,7 +98,6 @@ def load_json_file(path: Path) -> list[dict]:
 
 
 def merge_writer_inputs(relevance_rows: list[dict], summary_rows: list[dict]) -> list[dict]:
-    # Relevance 결과와 Reader 요약 결과를 title 기준으로 병합한다.
     summary_by_title = {
         row.get("title", "").strip(): row
         for row in summary_rows
@@ -150,7 +162,6 @@ def filter_writer_candidates(
     rows: list[dict],
     score_threshold: float = DEFAULT_WRITER_SCORE_THRESHOLD,
 ) -> list[dict]:
-    # Writer는 기준 점수 이상 논문만 입력으로 사용한다.
     return [row for row in rows if float(row.get("score", 0) or 0) >= score_threshold]
 
 
@@ -170,7 +181,6 @@ def print_writer_candidate_list(
 
 
 def build_report_outline(topic: str = DEFAULT_WRITER_TOPIC) -> dict:
-    # 한국어 논문형 보고서의 기본 목차를 고정한다.
     return {
         "topic": topic,
         "sections": REPORT_SECTION_TEMPLATE.copy(),
@@ -178,17 +188,14 @@ def build_report_outline(topic: str = DEFAULT_WRITER_TOPIC) -> dict:
 
 
 def print_report_outline(outline: dict) -> None:
-    print("\n한국어 논문형 보고서 목차 템플릿")
+    print("\n한국어 논문형 목차 템플릿")
     print(f"주제: {outline.get('topic', '')}")
     for index, section in enumerate(outline.get("sections", []), 1):
         print(f"{index}. {section}")
 
 
-def build_writer_prompt(topic: str, selected_rows: list[dict], outline: dict) -> str:
-    # 선별 논문 정보와 목차를 결합해 Claude용 Writer 프롬프트를 만든다.
-    section_text = "\n".join(f"- {section}" for section in outline.get("sections", []))
+def build_paper_context(selected_rows: list[dict]) -> str:
     paper_blocks: list[str] = []
-
     for index, row in enumerate(selected_rows, 1):
         paper_blocks.append(
             "\n".join(
@@ -208,60 +215,148 @@ def build_writer_prompt(topic: str, selected_rows: list[dict], outline: dict) ->
                 ]
             )
         )
+    return "\n\n".join(paper_blocks)
 
-    paper_text = "\n\n".join(paper_blocks)
-    return f"""당신은 한국어 학술 보고서 작성 보조 AI입니다.
+
+def build_section_prompt(
+    topic: str,
+    section_name: str,
+    selected_rows: list[dict],
+    outline: dict,
+    partial_sections: list[tuple[str, str]] | None = None,
+) -> str:
+    section_text = "\n".join(f"- {section}" for section in outline.get("sections", []))
+    paper_text = build_paper_context(selected_rows)
+    partial_context = ""
+    if partial_sections:
+        joined = "\n\n".join(f"[{name}]\n{content}" for name, content in partial_sections)
+        partial_context = f"\n[이미 생성된 섹션]\n{joined}\n"
+
+    return f"""당신은 한국어 학술 논문 초안 작성 보조 AI입니다.
 
 주제: {topic}
+현재 작성할 섹션: {section_name}
 
-아래 선별 논문 정보를 바탕으로 한국어 논문형 보고서 초안을 작성하시오.
-
-[보고서 목차]
+[전체 목차]
 {section_text}
-
-[출력 형식]
-- 한국어 학술 보고서 문체를 사용할 것
-- 위 목차 순서를 그대로 유지할 것
-- 각 섹션 제목을 명확히 표시할 것
-- 마지막에는 참고문헌 목록을 포함할 것
-
-[금지사항]
-- 입력 논문 정보에 없는 내용을 임의로 지어내지 말 것
-- 논문 내용을 단순 나열만 하지 말 것
-- 구어체, 감탄문, 불필요한 홍보성 표현을 쓰지 말 것
-
-[작성 지침]
-- 여러 논문의 공통점, 차이점, 연구 흐름을 종합적으로 서술할 것
-- 선정 이유와 관련성 점수는 참고하되 본문에서 점수를 그대로 나열하지 말 것
-- 방법 분석과 결과 분석 섹션에서는 논문 간 비교 내용을 포함할 것
-- 한계 섹션에서는 각 논문의 제약과 향후 가능성을 정리할 것
-- 각 주요 섹션에서 최소 두 번 이상 비교 또는 종합 문장을 사용할 것
-- "공통적으로", "반면", "차이점", "종합하면" 같은 연결 표현을 적절히 사용할 것
-- 관련 연구 섹션에서는 반드시 공통점과 차이점을 함께 서술할 것
-- 방법 분석 섹션에서는 논문 간 방법론 차이를 직접 비교하는 문장을 포함할 것
-- 결과 분석 섹션에서는 성과, 기여, 평가 방식의 공통점과 차이점을 함께 정리할 것
-- 결론 섹션에서는 전체 연구 흐름을 요약하는 종합 문장을 포함할 것
-
+{partial_context}
 [선별 논문 데이터]
 {paper_text}
+
+[공통 규칙]
+- 지금은 "{section_name}" 섹션만 작성할 것
+- 섹션 제목을 반드시 포함할 것
+- 입력 논문 정보에 없는 내용을 임의로 지어내지 말 것
+- 한국어 논문 문체를 사용할 것
+- 문장을 중간에 끊지 말고 완결되게 작성할 것
+- 개별 논문 소개를 길게 나열하지 말고, 본 논문의 문제의식과 주장 전개를 중심으로 재구성할 것
+- "논문 A는, 논문 B는" 식의 설명을 최소화하고 문제 중심, 쟁점 중심으로 서술할 것
+- 각 문단에서 선행연구를 소개한 뒤 반드시 "이 점이 본 연구에 주는 의미"를 연결할 것
+- 본문은 문헌 정리 메모가 아니라 하나의 독립적인 한국어 논문처럼 읽혀야 할 것
+
+[섹션별 지시]
+- 제목: 한국어 논문 제목 한 줄만 제시할 것
+- 초록: 연구 배경, 분석 대상, 핵심 논지, 결론을 1~2문단으로 요약할 것
+- 서론: 주제의 중요성, 연구 배경, 왜 이 문제가 중요한지를 제시할 것
+- 문제 정의 및 연구 목적: 기존 연구의 공백, 해결하려는 핵심 문제, 본 연구의 목적을 분명히 제시할 것
+- 선행연구 분석: 공통점·차이점·연구 흐름을 바탕으로 기존 연구를 재구성하되, 마지막에는 본 연구가 다루어야 할 공백을 도출할 것
+- 연구 방법 및 분석 관점: 수집 문헌을 어떤 기준으로 읽고 비교했는지 설명하고, 그 분석 틀이 왜 필요한지도 함께 쓸 것
+- 논의: 단순 요약이 아니라 본 연구의 해석, 시사점, 한계, 적용 가능성을 종합적으로 주장할 것
+- 결론: 전체 논의를 정리하고 본 연구의 핵심 결론과 향후 방향을 분명히 제시할 것
+- 참고문헌: 저자, 연도, 제목, 링크 중심으로 정리할 것
+
+[강조 표현]
+- "공통적으로", "반면", "차이점", "종합하면", "이러한 점은", "따라서", "본 연구에서는" 등을 적절히 활용할 것
 """
 
 
-def print_writer_prompt_preview(prompt: str, max_length: int = 3000) -> None:
+def build_section_continuation_prompt(
+    topic: str,
+    section_name: str,
+    existing_text: str,
+    selected_rows: list[dict],
+    outline: dict,
+) -> str:
+    paper_text = build_paper_context(selected_rows)
+    section_text = "\n".join(f"- {section}" for section in outline.get("sections", []))
+    return f"""당신은 한국어 학술 논문 초안 작성 보조 AI입니다.
+
+주제: {topic}
+현재 보완할 섹션: {section_name}
+
+[전체 목차]
+{section_text}
+
+[현재까지 생성된 섹션 초안]
+{existing_text}
+
+[선별 논문 데이터]
+{paper_text}
+
+[지시]
+- 위 섹션 초안이 중간에 잘렸거나 덜 완성된 상태이다.
+- 이미 작성된 내용을 반복하지 말고, 바로 이어서 자연스럽게 완성할 것
+- "{section_name}" 섹션만 이어서 작성할 것
+- 문장을 중간에 끊지 말고 완결되게 마무리할 것
+"""
+
+
+def print_writer_prompt_preview(prompt: str, max_length: int = 2500) -> None:
     print("\nWriter 프롬프트 미리보기")
     safe_print(prompt[:max_length])
     if len(prompt) > max_length:
         print("\n... (이하 생략)")
 
 
-def generate_report_draft(
-    prompt: str,
-    model: str = "claude-sonnet-4-6",
-    max_tokens: int = DEFAULT_WRITER_MAX_TOKENS,
-) -> str:
-    # 준비한 프롬프트를 Claude에 전달해 보고서 초안을 생성한다.
+def generate_text(prompt: str, max_tokens: int = SECTION_MAX_TOKENS) -> str:
     client = LLMClient()
-    return client.ask(prompt, model=model, max_tokens=max_tokens)
+    return client.ask(prompt, model="claude-sonnet-4-6", max_tokens=max_tokens)
+
+
+def get_section_token_limit(section_name: str) -> int:
+    return SECTION_TOKEN_LIMITS.get(section_name, SECTION_MAX_TOKENS)
+
+
+def looks_truncated(text: str) -> bool:
+    stripped = text.rstrip()
+    if not stripped:
+        return True
+    if stripped.endswith(("...", "…", "중략", "생략")):
+        return True
+    if stripped[-1] not in ".?!다요\"')]}":
+        return True
+    return False
+
+
+def complete_section_if_needed(
+    topic: str,
+    section_name: str,
+    section_text: str,
+    selected_rows: list[dict],
+    outline: dict,
+) -> str:
+    if not looks_truncated(section_text):
+        return section_text
+
+    print(f"  섹션 보완 생성: {section_name}")
+    continuation_prompt = build_section_continuation_prompt(
+        topic=topic,
+        section_name=section_name,
+        existing_text=section_text,
+        selected_rows=selected_rows,
+        outline=outline,
+    )
+    continuation = generate_text(continuation_prompt, max_tokens=get_section_token_limit(section_name))
+    return section_text.rstrip() + "\n" + continuation.lstrip()
+
+
+def assemble_draft(section_outputs: list[tuple[str, str]]) -> str:
+    parts: list[str] = []
+    for _, content in section_outputs:
+        cleaned = content.strip()
+        if cleaned:
+            parts.append(cleaned)
+    return "\n\n---\n\n".join(parts)
 
 
 def print_report_draft_preview(draft: str) -> None:
@@ -270,10 +365,9 @@ def print_report_draft_preview(draft: str) -> None:
 
 
 def check_synthesis_markers(draft: str) -> dict:
-    # 비교·종합 표현이 충분히 들어갔는지 1차 확인한다.
     found_markers = [marker for marker in SYNTHESIS_MARKERS if marker in draft]
-    required_sections = ["관련 연구", "방법 분석", "결과 분석", "결론"]
-    section_hits = {section: (section in draft) for section in required_sections}
+    required_sections = ["선행연구 분석", "연구 방법 및 분석 관점", "논의", "결론"]
+    section_hits = {section: any(alias in draft for alias in REPORT_SECTION_ALIASES[section]) for section in required_sections}
     return {
         "found_markers": found_markers,
         "section_hits": section_hits,
@@ -299,7 +393,6 @@ def slugify_topic(topic: str) -> str:
 
 
 def save_report_draft(draft: str, topic: str) -> Path:
-    # 생성된 초안을 markdown 파일로 저장한다.
     REPORT_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     filename = f"{slugify_topic(topic)}_{timestamp}.md"
@@ -317,7 +410,6 @@ def find_latest_report_file(topic: str) -> Path | None:
 
 
 def check_report_sections(draft: str) -> dict:
-    # 42번 테스트에서는 필수 섹션 포함 여부만 확인한다.
     section_hits: dict[str, bool] = {}
     for section, aliases in REPORT_SECTION_ALIASES.items():
         section_hits[section] = any(alias in draft for alias in aliases)
@@ -325,7 +417,6 @@ def check_report_sections(draft: str) -> dict:
 
 
 def validate_writer_output(draft: str, saved_path: Path, synthesis_check: dict) -> dict:
-    # 기능 테스트 관점에서 생성 여부, 섹션, 저장 성공 여부를 확인한다.
     section_hits = check_report_sections(draft)
     has_draft = bool(draft.strip())
     file_saved = saved_path.exists()
@@ -356,21 +447,20 @@ def print_writer_validation_result(result: dict, saved_path: Path) -> None:
 
 
 def run_writer_output_test(draft: str, topic: str = DEFAULT_WRITER_TOPIC) -> dict:
-    # Review Agent가 아니라 기능 테스트 관점에서 Writer 결과를 검증한다.
     saved_path = find_latest_report_file(topic)
+    synthesis_check = check_synthesis_markers(draft)
     if saved_path is None:
         result = {
             "has_draft": bool(draft.strip()),
             "file_saved": False,
             "section_hits": check_report_sections(draft),
             "sections_ok": False,
-            "synthesis_ok": check_synthesis_markers(draft).get("is_synthesis_visible", False),
+            "synthesis_ok": synthesis_check.get("is_synthesis_visible", False),
             "is_valid": False,
         }
         print_writer_validation_result(result, Path("없음"))
         return result
 
-    synthesis_check = check_synthesis_markers(draft)
     result = validate_writer_output(draft, saved_path, synthesis_check)
     print_writer_validation_result(result, saved_path)
     return result
@@ -408,9 +498,7 @@ def run_writer_input_check() -> list[dict]:
     return rows
 
 
-def run_writer_input_build(
-    score_threshold: float = DEFAULT_WRITER_SCORE_THRESHOLD,
-) -> list[dict]:
+def run_writer_input_build(score_threshold: float = DEFAULT_WRITER_SCORE_THRESHOLD) -> list[dict]:
     rows = load_writer_input_data()
     if not rows:
         print("Writer 입력 데이터를 불러오지 못했습니다.")
@@ -447,15 +535,14 @@ def run_writer_preparation_flow(
     print_report_outline(outline)
     print("\n목차 템플릿 적용 완료")
 
-    prompt = build_writer_prompt(topic=topic, selected_rows=selected_rows, outline=outline)
-    print_writer_prompt_preview(prompt)
+    preview_prompt = build_section_prompt(topic, "선행연구 분석", selected_rows, outline)
+    print_writer_prompt_preview(preview_prompt)
     print("\n프롬프트 생성 완료")
 
     return {
         "topic": topic,
         "selected_rows": selected_rows,
         "outline": outline,
-        "prompt": prompt,
     }
 
 
@@ -463,16 +550,35 @@ def run_writer_draft_generation(
     topic: str = DEFAULT_WRITER_TOPIC,
     score_threshold: float = DEFAULT_WRITER_SCORE_THRESHOLD,
 ) -> str:
-    preparation = run_writer_preparation_flow(
-        topic=topic,
-        score_threshold=score_threshold,
-    )
+    preparation = run_writer_preparation_flow(topic=topic, score_threshold=score_threshold)
     if not preparation:
         print("Writer 초안 생성 준비에 실패했습니다.")
         return ""
 
-    print("\nClaude API로 보고서 초안 생성 중...")
-    draft = generate_report_draft(preparation["prompt"])
+    selected_rows = preparation["selected_rows"]
+    outline = preparation["outline"]
+
+    section_outputs: list[tuple[str, str]] = []
+    for section_name in outline["sections"]:
+        print(f"\n섹션 생성 중: {section_name}")
+        prompt = build_section_prompt(
+            topic=topic,
+            section_name=section_name,
+            selected_rows=selected_rows,
+            outline=outline,
+            partial_sections=section_outputs,
+        )
+        section_text = generate_text(prompt, max_tokens=get_section_token_limit(section_name))
+        section_text = complete_section_if_needed(
+            topic=topic,
+            section_name=section_name,
+            section_text=section_text,
+            selected_rows=selected_rows,
+            outline=outline,
+        )
+        section_outputs.append((section_name, section_text))
+
+    draft = assemble_draft(section_outputs)
     print_report_draft_preview(draft)
     synthesis_check = check_synthesis_markers(draft)
     print_synthesis_check(synthesis_check)
