@@ -256,12 +256,12 @@ def build_score_reason(
         reasons.append("주제와 직접 겹치는 키워드는 없음")
 
     if total_hits > 0:
-        reasons.append(f"핵심 컴퓨터 용어가 총 {total_hits}회 등장함")
+        reasons.append(f"컴퓨터 분야 핵심 용어가 총 {total_hits}회 등장함")
     else:
-        reasons.append("핵심 컴퓨터 용어 등장 빈도는 낮음")
+        reasons.append("컴퓨터 분야 핵심 용어 등장 빈도는 낮음")
 
     if title_overlap:
-        reasons.append(f"제목에서도 관련 키워드 {sorted(title_overlap)}가 확인됨")
+        reasons.append(f"제목에서 관련 키워드 {sorted(title_overlap)}가 확인됨")
 
     if final_score >= SELECTION_THRESHOLD:
         reasons.append("선별 기준 이상으로 관련 논문 후보로 볼 수 있음")
@@ -274,7 +274,7 @@ def build_score_reason(
 def print_selected_papers(sorted_rows: list[dict]) -> None:
     selected_rows = [row for row in sorted_rows if row["score"] >= SELECTION_THRESHOLD]
 
-    print("\n관련성 점수순 정렬 결과:")
+    print("\n관련성 점수 정렬 결과:")
     for rank, row in enumerate(sorted_rows, 1):
         print(f"  {rank}. {row['title'][:60]} - {row['score']:.1f}/100 ({row['selection_result']})")
 
@@ -286,7 +286,7 @@ def print_selected_papers(sorted_rows: list[dict]) -> None:
     else:
         print("선별된 논문이 없습니다.")
 
-    print("\n이후 Writer Agent에는 위 선별 결과만 전달될 예정입니다.")
+    print("\n이후 Writer Agent에는 이 선별 결과만 전달될 예정입니다.")
 
 
 def build_relevance_result(
@@ -325,12 +325,11 @@ def build_relevance_result(
     }
 
 
-if __name__ == "__main__":
+def run_relevance(topic: str) -> list[dict]:
     papers = load_summary_results()
     if not papers:
-        raise SystemExit(1)
+        return []
 
-    topic = input("\n관련성을 평가할 주제를 입력하세요 (예: AI code review): ").strip()
     topic_keywords = extract_topic_keywords(topic)
 
     print("\n논문별 최종 관련성 점수 계산:")
@@ -340,27 +339,21 @@ if __name__ == "__main__":
 
     raw_rows: list[dict] = []
     raw_frequency_scores: list[float] = []
-
     skipped_results: list[dict] = []
 
     for paper in papers:
         if not has_usable_summary_data(paper):
-            message = "요약 데이터가 비어 있어 점수 계산 불가, 기본값 0점으로 처리하고 다음 논문으로 넘어감"
+            message = "요약 데이터가 부족해 점수 계산이 어려워 기본값 0점으로 처리함"
             print(f"\n[건너뜀] {paper.get('title', '')[:60]}")
             print(f"  예외 처리: {message}")
-            print("  이후 재분석 또는 수동 보정이 가능하도록 결과를 저장합니다.")
             skipped_results.append(build_fallback_result(paper, topic_keywords, message))
             continue
 
         paper_keywords = extract_paper_keywords(paper)
         if len(paper_keywords) < MIN_KEYWORD_COUNT:
-            message = (
-                f"추출 키워드가 {len(paper_keywords)}개로 부족해 점수 계산 신뢰도가 낮음, "
-                "기본값 0점으로 처리하고 다음 논문으로 넘어감"
-            )
+            message = f"추출 키워드가 {len(paper_keywords)}개로 부족해 기본값 0점으로 처리함"
             print(f"\n[건너뜀] {paper.get('title', '')[:60]}")
             print(f"  예외 처리: {message}")
-            print("  이후 재분석 또는 수동 보정이 가능하도록 결과를 저장합니다.")
             skipped_results.append(build_fallback_result(paper, topic_keywords, message))
             continue
 
@@ -394,7 +387,7 @@ if __name__ == "__main__":
         result = build_relevance_result(paper, topic_keywords, frequency_score, row)
 
         print(f"\n[{index}] {result['title'][:60]}")
-        print(f"  논문 키워드 (상위 10개): {row['paper_keywords'][:10]}")
+        print(f"  논문 키워드(상위 10개): {row['paper_keywords'][:10]}")
         print(f"  공통 키워드: {result['shared_keywords'] if result['shared_keywords'] else '없음'}")
         print(f"  Jaccard 유사도: {row['jaccard_score']:.3f}")
         print(f"  겹침 비율: {row['overlap_score']:.3f} ({len(row['shared_overlap'])}/{len(set(topic_keywords))})")
@@ -411,3 +404,13 @@ if __name__ == "__main__":
     sorted_results = sorted(relevance_results, key=lambda item: item["score"], reverse=True)
     print_selected_papers(sorted_results)
     save_relevance_results(sorted_results)
+    return sorted_results
+
+
+if __name__ == "__main__":
+    topic = input("\n관련성을 평가할 주제를 입력하세요 (예: AI code review): ").strip()
+    if not topic:
+        topic = "AI code review"
+    results = run_relevance(topic)
+    if not results:
+        raise SystemExit(1)
